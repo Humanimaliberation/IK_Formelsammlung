@@ -16,4 +16,4 @@ Eine Zusammenfassung der Inhalte des Kurses Industrielle Kommunikation (IK) an d
 # Beispiele
 Formelsammlungen in LaTeX von der TUM: http://www.latex4ei.de/ 
 
-Für die IK-Formelsammlung wird als Grundgerüst die DK-Formelsammlung der TUM verwendet und mit neuen Inhalten ausgefüllt.
+Für die IK-Formelsammlung wird als Grundgerüst die Nachrichtentechnik-Formelsammlung der TUM verwendet und mit neuen Inhalten ausgefüllt. Zusätzlich werden Inhalte der Internetkommunikation-Formelsammlung verwendet.
