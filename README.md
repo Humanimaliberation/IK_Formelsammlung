@@ -9,7 +9,8 @@ Eine Zusammenfassung der Inhalte des Kurses Industrielle Kommunikation (IK) an d
 2. Installation einer LaTeX-Distribution, z.B. TeXLive https://www.tug.org/texlive/ oder  MiKTex https://miktex.org/download oder TeXLive 
 3. Herunterladen der Formelsammlung
 4. Bearbeiten
-5. Upload mit Kommentar zur Änderung im Mainbranch (ggf. bei paralleler Bearbeitung in einem seperaten Branch)
+5. Upload mit Kommentar zur Änderung im Mainbranch (ggf. bei paralleler Bearbeitung in einem seperaten Branch) 
+
 (6. Ggf. beide Branches (zwei unterschiedlich veränderte Ursprungsdateien) wieder zusammenführen zu einer Datei)
 
 # Beispiele
