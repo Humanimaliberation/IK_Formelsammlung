@@ -9,11 +9,12 @@ Die aktuelle kompilierte pdf-Version der Formelsammlung ist im Ordner IK_Formels
 # Anleitung zum Bearbeiten
 1. Installation eines LaTeX-Editors, z.B. TeXstudio http://www.texstudio.org/
 2. Installation einer LaTeX-Distribution, z.B. TeXLive https://www.tug.org/texlive/ oder  MiKTex https://miktex.org/download oder TeXLive 
-3. Herunterladen der Formelsammlung
-4. Bearbeiten
-5. Upload mit Kommentar zur Änderung im Mainbranch (ggf. bei paralleler Bearbeitung in einem seperaten Branch) 
+3. Anmelden unter GitHub und Collaborator werden
+4. Herunterladen der Formelsammlung
+5. Bearbeiten der .tex-Datei
+6. Upload mit Kommentar zur Änderung im Mainbranch (ggf. bei paralleler Bearbeitung in einem seperaten Branch) 
 
-(6. Ggf. beide Branches (zwei unterschiedlich veränderte Ursprungsdateien) wieder zusammenführen zu einer Datei)
+(7. Ggf. beide Branches (zwei unterschiedlich veränderte Ursprungsdateien) wieder zusammenführen zu einer Datei)
 
 # Beispiele
 Formelsammlungen in LaTeX von der TUM: http://www.latex4ei.de/ 
