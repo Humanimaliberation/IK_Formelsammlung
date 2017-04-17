@@ -4,6 +4,8 @@ Diese Dateien nur mit euren Komilliton*innen teilen!
 # IK_Formelsammlung mit LaTeX
 Eine Zusammenfassung der Inhalte des Kurses Industrielle Kommunikation (IK) an der HS Mannheim, Sommersemester 2017, unter Ausschluss des Profs(!) aufgrund einer potentiell deshalb schwerer gestalteten Klausur.
 
+Die aktuelle kompilierte pdf-Version der Formelsammlung ist im Ordner IK_Formelsammlung zu finden.
+
 # Anleitung zum Bearbeiten
 1. Installation eines LaTeX-Editors, z.B. TeXstudio http://www.texstudio.org/
 2. Installation einer LaTeX-Distribution, z.B. TeXLive https://www.tug.org/texlive/ oder  MiKTex https://miktex.org/download oder TeXLive 
