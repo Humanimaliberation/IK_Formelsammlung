@@ -1,8 +1,8 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
-% Formelsammlung von LaTeX4EI									
+% Formelsammlung für Industrielle Kommunikation									
 %
 % @encode: 	UTF-8, tabwidth = 4, newline = LF
-% @author:	Emanuel Regnath
+% @author:	 Emanuel Regnath, Martin Zellner und Kursteilnehmer*innen IK, SoSe 2017, HS-Mannheim
 % @date:		
 %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
@@ -295,18 +295,38 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 \section{Baud-, Bit- und Übertragungsraten}
 \sectionbox{
 	\subsection{Definitionen}	
-Signalstufen		= Anzahl der möglichen annehmbaren Werte eines diskreten Signals pro Schritt \\
-1 Byte [1B]		=	8 Bit [8b] = $2^8$ \\
-Baudrate[Hz] 	= Schrittgeschwindigkeit \\
-Bitrate[bps] 	= $\frac{Bps}{8}$ = V \cdot Baudrate \\
+		Signalstufen		= Anzahl der möglichen annehmbaren Werte eines diskreten Signals pro Schritt \\
+		binäre Datenmenge in bit (\textbf{b}inary dig\textbf{it}) mit bit-Anzahl $\in \mathbb{N}$ \\
+		1 Byte [1B]		=	8 bit [8b] = $2^8$ \\
+		Baudrate[Hz] 	= Schrittgeschwindigkeit \\
+		Bitrate[bps] 	= $\frac{Bps}{8} = V \cdot$ Baudrate \\
 
-
+%TODO: Einheitlich definieren (Name Symbol, [Symbol] = Einheit)
 
 
 }
 
 % ============================================================================================
+% SECTION ====================================================================================
+\section{Leitungstheorie}
 
+\sectionbox{ Leitungstheorie \textbf{relevant für $l >= 0,1 \lambda$}
+	\subsection{Definitionen}
+	Leitungslänge $l$ mit [$l$] = m \\
+	Belagsgrößen:  $R', L', G', C'$ als Widerstands-, Induktivitäts-, Ableitungs-, Kapazitätsbelag \\
+	Bsp: $R = R' \cdot l$ mit [$R'$] = $\frac{\Omega}{m}$ \\
+	Wellenimpedanz $\underline{Z}_L = \sqrt{\frac{(R'\cdot j\omega L')}{(G' \cdot j \omega C')}} $ \\
+	Wellenlänge $\lambda$ mit [$\lambda$] = m \\
+	Ausbreitungsgeschwindigkeit $v$ = $\lambda \cdot f$ mit [$v$] = m/s \\
+	Ausbreitungskonstante $\gamma = \alpha + j \beta = \sqrt{(R'\cdot j\omega L')(G' \cdot j \omega C')}$ mit [$\gamma$] = $\frac{1}{m}$ \\
+
+	
+	\subsection{Leitungsmodell}
+	%TODO: Grafik einfügen
+	
+	
+	
+}
 
 % SECTION ====================================================================================
 \section{Codierung}

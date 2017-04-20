@@ -1,9 +1,12 @@
 % Klasse für LaTeX4EI									Stand 04.04.13
 % Erstellt von Emanuel Regnath, Martin Zellner
+% Edit: Überarbeitet von Matthias Werle und Kursteilnehmer*innen IK, SoSe17, HS-Mannheim
 %
 % Lizenz: Dieses package darf nur für Dokumente für LaTeX4EI verwendet werden!
-% Bei anderem Verwendungszweck bitte Erlaubnis einholen: info@latex4ei.de
+% Edit: Verwendet wird nicht dieses package, sondern die überarbeitete Version.
+% Bei anderem Verwendungszweck bitte Erlaubnis einholen: info@latex4ei.de -> TODO
 % © 2013, LaTeX4EI
+% Edit: Warum nicht unter einer CreativeCommons-Lizenz für dien unkommerziellen Gebrauch frei verwend- und editierbar anbieten
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{latex4ei}[2014/03/16 Formelsammlungsvorlage von LaTeX4EI]
