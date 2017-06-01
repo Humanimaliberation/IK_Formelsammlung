@@ -45,7 +45,7 @@
 \includegraphics[width = \columnwidth]{./img/transmission.pdf}
 Signal $\ra$ A/D Wandlung: Abtastung $\ra$ Digitaler Bitstrom $\ra$ D/A Wandlung: $\pm 1$ Gewichtete NF Impulse $\pm g_{\ir s}(t)$ $\ra$ Modulation: Verschiebung ins Trägerband $\ra$ AWGN Kanal $\ra$ Detektor $\ra$ Bitstrom
 
-
+%TODO: Begriffsdefinitionen Voll- und Halbduplex, ...
 }
 
 % SECTION ====================================================================================
@@ -301,7 +301,25 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 		Baudrate[Hz] 	= Schrittgeschwindigkeit \\
 		Bitrate[bps] 	= $\frac{Bps}{8} = V \cdot$ Baudrate \\
 
+
+\begin{tabular}{|c|c|c|}
+	\hline 
+	Größe & Einheit & Def \\ 
+	\hline 
+	diskrete Signalstufen V & 1 & Anzahl möglicher annehmbarer Werte digitaler Signale \\ 
+	\hline 
+	Baudrate & 1 Hz & Schrittgeschwindigkeit \\ 
+	\hline 
+	Bitrate & $ 1 bps = 1 \frac{bit}{s}$ & Datenrate in bits $log_2{V} bit \cdot Baudrate$ \\ 
+	\hline 
+	binäre Datenmenge & 1 bit & 1 Byte = 8 bit \\ 
+	\hline 
+	&  &  \\ 
+	\hline 
+\end{tabular} 
+
 %TODO: Einheitlich definieren (Name Symbol, [Symbol] = Einheit)
+%TODO: Tabellenformatierung ändern
 
 
 }
@@ -324,9 +342,79 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	\subsection{Leitungsmodell}
 	%TODO: Grafik einfügen
 	
+	\subsection{Formeln}
+	%TODO: Abschreiben von Hübners Formelsammlung
 	
-	
+	%Spezialfälle bei Eingangsimpedanzen bei Leitungen mit Abschlussimpedanz für Länge = lambda/4 oder labmda/2
 }
+
+% SECTION ====================================================================================
+\section{Wellen und Antennen}
+% ============================================================================================
+	Indizes: 
+\textbf{E}(empfänger), \textbf{i}(sotroper Kugelstrahler), \textbf{r}(adius), \textbf{S}(ender) \\
+
+\sectionbox{
+	\subsection{Poynting-Vektor}
+	Poynting-Vektor $\tilde{S}$ ist Vektor der Leistungsflussdichte mit $[S] = 1\frac{W}{m^2}$ \\
+	$\overrightarrow{S}(x,y,z,t) = \overrightarrow{E}(x,y,z,t) \times \overrightarrow{H}(x,y,z,t)$ \\
+	Für harmonische Zeitvorgänge und EM-Wellen ($\overrightarrow{E} \sphericalangle \overrightarrow{H} = \frac{\pi}{2} $) gilt: \\
+	$S = \frac{1}{2}E \ast{H} = \frac{1}{2}H^2 Z_F = \frac{1}{2}\frac{Z_F}{E^2}$ mit $E, H \in \mathbb{C}$ \\ 
+	Wellenwiderstand im Vakuum $Z_F = \sqrt{\frac{\mu_0}{\epsilon_0}} \approx 376,73 \Omega$
+	%TODO: Komplex-konjugierte Zahl nicht mit \ast kennzeichnen ... passenden LaTeX suchen
+
+
+	
+	$S_i = \frac{P_S}{4 \pi r^2}$ \\
+	
+	Richtfaktor $D_i = \frac{S_{r,max}}{i} = 4 \pi r^2 \frac{S_{r,max}}{P_S}$\\
+	
+	i.d.R. angegeben als $D_{i,log} = 10 log D_i dBi $ \\
+	
+	Antennengewinn $ G = \eta D_i$ i.d.R. angegeben in dB \\
+	
+	Antennenwirkfläche $ A_W = \frac{\lambda^2}{4 \pi} G $
+	mit der Wellenlänge $\lambda = \frac{c}{f}$
+	
+	Bsp. Empfangs- und Sendeantenne im Abstand r zueinander: $P_E = P_S \cdot G_S \cdot G_E (\frac{\lambda}{4 \pi r})^2$
+}
+
+\section{Zugriffsverfahren}
+% ============================================================================================
+
+
+\sectionbox{
+	Rahmenzeit $ \tau$ in $s$ für ein Paket \\
+	Rate $ \lambda$ in $Hz$ mit der durschnittlich Pakete gesendet werden\\
+	Zu sendende Pakete $ I $, bei keinen verlorenen Pakete gilt $ I = S $ \\
+	Anzahl Übertragungsversuche bzw. Kanalauslastung $ G = \lambda \cdot \tau $ \\
+	Anzahl erfolgreich übertragener Pakete pro Rahmenzeit $ S $, ideal $ S = G $ \\
+
+	\textbf{Stop and Wait} \\
+	
+	\textbf{Pipelining} \\
+	Wartezeit nur wenn 
+
+
+	%TODO: Graphik Datendurchsatz bei ALOHA einfügen Folie 12 Zugriffsverfahren,
+	\subsection{Pure ALOHA}
+		Zufällige Sendung von Paketen durchschnittlich alle $\frac{1}{\lambda}$ mit Paketen der zeitlichen Rahmenlänge $ \tau $ \\
+		
+		Potentielle Kollisionszeit $ = 2 \tau $ \\
+		$ S = G \cdot e^{-2G} $ mit $ S_{max}(G = G_{max} = 0,5) = 0,184 $
+
+	\subsection{Slotted ALOHA}
+		Zufälliges Senden von Paketen durschnittlich alle $\frac{1}{\lambda}$ zu Beginn eines Zeitslots mit Paketen der zeitlichen Rahmenlänge $ \tau $ \\
+		
+		Potentielle Kollisionszeit $ = \tau $ \\
+		$ S = G \cdot E^{-G} $ mit $ S_{max}(G = G_{max} = 1) = 0,368 $
+		
+	\subsection{CSMA/CD}
+		Carrier Sense Multiple Access / Collision Detection \\
+		Ethernet:  Min. Nachrichtenlänge $ > $  Max. Konfliktdauer oder ev. künstl. Nachrichtenverlängerung mit Padding Bits \\
+}
+
+
 
 % SECTION ====================================================================================
 \section{Codierung}
@@ -363,6 +451,16 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	% Paper Award IEEE: Polar Codes
 	% Kanal lässt bestimmte Frequenzen durch: Luft hat bei 60GHz ein Minimum weil Wassermoleküle dagegen schwingen.
 }
+
+\sectionbox{
+	
+	\subsection{Hamming-Code(N,n)}
+	N Nachrichtenbits mit $ N = 2^k - 1 = n + k $\\
+	n Datenbits \\
+	k Paritybits \\
+}
+
+
 
 \columnbreak
 % SECTION ====================================================================================
@@ -1091,6 +1189,18 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 }
 
 
+\section{E-Technik}
+%TODO: Ergänzung Quellen-ESB, OP-Amps, Transistorschaltungen
+
+\sectionbox{
+		\subsection{title}
+
+}
+
+
+\section{Naturkonstanten}
+\sectionbox
+
 
 % Ende der Spalten
 \end{multicols*}
@@ -1099,7 +1209,6 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 % ======================================================================
 \end{document}
 
-% ToDos:
 
 
 
