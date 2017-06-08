@@ -65,179 +65,40 @@ Signal $\ra$ A/D Wandlung: Abtastung $\ra$ Digitaler Bitstrom $\ra$ D/A Wandlung
 }
 
 
-\sectionbox{
-	\subsection{Sonstiges}
-	Autokorrelation $r_{\textsf{V}}(\tau) \FT S_{\textsf{V}}(f)$ Leistungsdichtespektrum
-	$x(t),y(t)$ sind orthogonal, falls $\int\limits_{-\infty}^\infty x(t)y(t) = 0$\\
-	Kompl. Fehlerfunktion $\erfc(x) = 1 - \erf(x) = \frac{2}{\sqrt{\pi}} \int\limits_{x}^\infty e^{- \tau^2} \diff \tau$
-}	
-
-
-% SECTION ====================================================================================
 \section{Abtastung von Signalen}
 % ============================================================================================
 \sectionbox{
-\subsection*{Abtasttheorem}
-Signal $x(t)$, Abtastfunktion $s(t) = T_A \sum \delta(t-nT_s)$, \\
-Tiefpassfilter $h_r(t)$\\
-\\
-\begin{tabular*}{\columnwidth}{@{\extracolsep\fill}lll@{}}
-	Vorgang & Zeitbereich & Frequenzbereich\\
-	Abtasten: & $x_s(t) = s(t) \cdot x(t)$ & $X_s(\omega) = S(\omega) * X(\omega)$\\
-	Rekonstr. & $x_r(t) = h_r(t) * x_s(t)$ & $X_r(\omega) = H_r(\omega) \cdot X_s(\omega)$\\
+
+
+\begin{tabular*}{\columnwidth}{p{1.4cm} | p{2.2cm} | p{2.2cm}}
+	Bezeichnung & Symbol & Einheit \\ \hline
+	Signalstufen & $V$ & $[V] = 1$ \\ \hline
+	Bandbreite & $B$ & $[B] = 1 Hz$  \\ \hline
+	Datenrate / Bitrate & $R_b$ & $[R_b] = 1 bps $ \\ \hline
+	Sendepegel (Signal) & $P_S$ & $[P_S] = 1 W $ oder $[P_{S,dBm}] =  1 dBm $ \\ \hline
+	Rauschpegel (Noise) & $P_N$ & $[P_N] = 1 W $ oder $[P_{N,dBm}] = 1 dBm $ \\ \hline
+	Interefrenzpegel & $P_I$ & $[P_I] = 1 W $ oder $[P_{I,dBm}] = 1 dBm $ \\ \hline
+	Signal-Rausch-Verhältnis & $ SNR = \frac{P_S}{P_N}$ & $[SNR] = 1$  oder  $ [SNR_{dB}] = 1 dB$ \\ \hline
+	Signal-Intefrenz-Rausch-Verhältnis & $ SINR = \frac{P_S}{P_I + P_N}$ & $[SINR] = 1$  oder  $ [SINR_{dB}] = 1 dB$ \\	
+	
 \end{tabular*}\\
-\\
-\begin{center} \includegraphics[scale = 1]{./img/sampletheorem.pdf} \end{center}
 
-Bandbreite $\omega_g$, Abtastfrequenz $\omega_s$\\
-\\
-\boxed{ \omega_s = \frac{2 \pi}{T_s} \ge 2 \omega_g } \qquad \boxed{ \omega_g \le \omega_r \le \omega_s - \omega_g }
-
-Abtastoperator: $\mathbb A\{x(t)\} = x(t) \cdot T_A \sum \limits_{n = - \infty}^{\infty} \delta (t - n T_A)$ \\
-Rekonstruktion: $x_r(t) = T_{\ir A} \sum \limits_{n = - \infty}^{\infty} x(n T_{\ir A}) \cdot h_r(t - nT_{\ir A})$\\
-Abbruchfehler: $\abs{\Delta} = \abs{\frac{x_r(t) - x(t)}{x(t)}}$\\
-Periodisierungsoperator: $\mathbb P \{ X(f) \} = X(f) * \sum \limits_{n = - \infty}^\infty \delta (f - \frac{n}{T_A})$
-
-Ideale Abtastung:
-$\mathbb A \{x(t) \} \overset{f_A = 1 / T_A}{\ftsymbol} \mathbb P \{ X(f) \}$
-}
-
-%Projektion: $\int\limits_{-\infty}^{\infty} x(t) \sinc\left( \frac{t- nT_A}{T_A}\right) \diff t = T_{\ir A} x(n T_A)$\\
-%$\int\limits_{-\infty}^{\infty} b_n(t) b_m(t) \diff t = \delta[m-n]$\\ 
-
-
-%Sample\&Hold: Interpolation $\rightleftarrows$ Dezimierung\\
-
-
-
-% SECTION ====================================================================================
-\section{Quantisierung und Digitalisierung}
-% ============================================================================================
-wertkontinuierliche Sequenz von (zeitdiskreten) Abtastwerten wird abgebildet auf wertdiskrete Sequenz.
-\begin{center}
- $x ( n T_A)$ mit $ n \in \mathrm Z$ $\overset{x_Q}{\longrightarrow} $ $x_Q (nT_A)$
-\end{center} 
-
-\sectionbox{
-\subsection{Allgemeines}
-Quantisierungsfunktion $\vec x_Q = \mathcal Q(\vec x)$
-
-Bildet Vektoren $\vec x \in \R^N$ auf eine Menge $S$ ab mit $\abs{S} = M$
-
-Man benötigt $m = \ceil{\log_2 M}$ bits um $\vec x_Q$ zu repräsentieren.\\
-Intervall $I_i = [g_i, g_{i+1}]$ enthält Reprodwert $s_i$ \\
-
-Skalare Quantisierer: $N=1$ \qquad Vektor Quantisierer: $N > 1$\\
-
-Quantisierungsfehler: $\vec q (\vec x) = \vec x_Q - \vec x = s_i - x$
-
-(besteht aus granularem Rauschen und Überlastungsrauschen)
-}
-
-
-\sectionbox{
-	\subsection{Skalare Quantisierung $N = 1$}
-
-	$m$ Bits für einen ($N = 1$) Abtastwert \\
-
-	Quantisierungsfehler $q(x) = x_Q - x = x_Q (n T_A) - x (nT_A)$
-
-	\emphbox{
-		Quantisierungsfehlerleistung:
-
-		$P_{\ir Q} = \int q(x)^2 f_{\X}(x) \diff x = \sum\limits_{s_i} \int_{g_i}^{g_{i+1}} (s_i - x)^2 f_{\X}(x) \diff x$ 
-	}
-
-	Optimales $s_i$ (setze $\frac{\partial P_Q}{\partial s_i} \overset{!}{=} 0$):
-
-	$s_i = \frac{\int \limits_{g_i}^{g_{i+1}} x f_x (x) \diff x}{\int \limits_{g_i}^{g_{i+1}}  f_x (x) \diff x} = \E \left[ \X | x \in I_i \right]$
-}
-
-
-\sectionbox{
-	\subsection{Lineare Quantisierung}
-	Spezialfall der skalaren Quantisierung mit gleich großen Quantisierungsintervallen $\Delta$.
+	 (\textbf{S}ignal-To-\textbf{N}oise-\textbf{R}atio), Signal zu Rauschabstand $SNR_{(dB)}$ \\
+$SNR_{dB} = 10 \log_{10}(SNR)  dB = P_{S,dBm} - P_{N,dBm} $ \\
 	
-	% TODO: Quantisierungskennlinie einfügen (Beispiel: http://home.arcor.de/rachid.nouna/Telekommunikation/Grundlagen-Dateien/image005.jpg links)
 	
-	\pbox{4cm}{\includegraphics{./img/pdf_quantization.pdf}} \ \pbox{4cm}{\includegraphics{./img/pdf_quantization_error.pdf}} \
-	\pbox{4cm}{\includegraphics{./img/quantization_error.pdf}}\\
-	\emphbox{Es gilt für PDF: $\int\limits_{-\infty}^\infty f_{\X}(x) \diff x \stackrel{!}{=} 1$}
+	 (\textbf{S}ignal-To-\textbf{I}nterference-And-\textbf{N}oise-\textbf{R}atio) $SINR_{(dB)}$ \\
+	$SINR = \frac{P_S}{P_I + P_N}$   \\
+	$SINR_{dB} = 10 \log_{10}(SINR)  dB $ \\
+	$SINR_{dB} = P_{S,dBm} - P_{I,dBm} - P_{N,dBm}$ \\
 	
-	Gleich große Quantisierungsintervalle $\mathcal I_i=[g_i, g_{i+1}]$ mit Breite $\Delta$\\
-	$\Delta = \frac{x_{\max} - x_{\min}}{2^m} = g_{i+1} - g_i$\\ 
 	
-	Reproduktionswerte $s_i$ in der Mitte der Intervalle (midriser)\\
-	$s_i = \frac{2i - M + 1}{2} \Delta$\\ 
 	
-	Auftrittswahrscheinlichkeit $p_i$ der Quantisierungsstufe $s_i$ \\
-	$p_i=\int_{g_i}^{g_{i+1}}f_{\ir X}(x)\diff x$\\
+	\subsection{Nyquist-Abtasttheorem}
+	$ R_{b,max} = 2 B ld(V) \frac{bit}{s} $
 
-	\emphbox{Signalleistung $P_{\ir X} = \E[\X^2] = \int\limits_{x_{\min}}^{x_{\max}} x^2 f_{\X}(x) \diff x$}\\
-	Gleichverteilung: $P_{\ir X} = \frac{x_{\max}^2}{3}$ \qquad Sinusförmig: $P_{\ir S} = \frac{x_{\max}^2}{2}$\\[1em]
-	\emphbox{Fehlerleistung $P_{\ir Q} = \E[\textit{Q}^2] = \int\limits_{-\infty}^{\infty} q(x)^2 f_{\textit{Q}}(q) \diff q$}\\
-	Bei gleichverteiltem Quantisierungsfehler: $P_{\ir Q} = \frac{\Delta^2}{12}$
-
-	% wichtige Formel vgl. Übung 10 $P_Q = \sum \limits_{s_i} \int \limits_{-\Delta / 2}^{\Delta / 2} z^2 f_X (z + s_i) \diff z$
-
-	\emphbox{Signal-Noise-Ratio: $\SNR_Q = \frac{P_{\ir X}}{P_{\ir Q}}$}
-	$\SNR_Q = \frac{P_{\ir X}}{P_{\ir Q}} = \begin{cases}
-		\frac{x^2_{\ir max} /3}{\Delta^2 / 12} = 2^{2m} &\text{ bei gleichverteiltem Signal }\\
-		\frac{x^2_{\ir max} /2}{\Delta^2 / 12} = \frac 3 2 2^{2m} &\text{ bei sinusförmigem Signal }\\
-	\end{cases}$\\ \\
-	Signal zu Quantisierungsrauschabstand $\SNR_{Q\si{\decibel}}$\\
-	$\SNR_{Q\si{\decibel}} = 10 \log_{10}(\SNR_Q)\si{\decibel} = m \cdot \SI{6}{\decibel}$\\
-	 (CD, $\SI{16}{bit}: \SI{96}{\decibel})$	
-}
-
-
-\sectionbox{
-	\subsection{Nichtlineare Quantisierung}
-	A-law-Kennlinie (Europa) und $\mu$-law-Kennlinie (USA)\\
-	$C(x) = \begin{cases} \frac{A}{1 + \ln(A)} \cdot \abs{x} \cdot \sgn(x) & 0 \le \abs{x} \le \frac{x_{\max}}{A} \\[1em]
-	\frac{1 + \ln\left( \frac{A \cdot \abs{x}}{x_{\max}} \right)}{1 + \ln(A)} \cdot \abs{x} \cdot \sgn(x) & \text{sonst} \end{cases}$
-
-	$A = 87.5 = \SI{24}{\decibel}$
-
-		\subsubsection{Pulse Coded Modulation PCM}
-		Abtastung + skalare Quantisierung: $\SNR_Q = \frac{P_X}{P_Q} = 2^{2m}$
-	
-		\subsubsection{Differentielle PCM (DPCM)}
-		Differenz zu vorhergesagtem Wert wird quantisiert.\\
-		Prädiktion 0.ter Ordnung: Kann bei schnellen, großen Änderungen nicht mehr folgen.
-		Gut geeignet für Signale mit hoher zeitlicher Konzentration $\ra$ schmales Spektrum.
-
-		\subsubsection{Delta-Modulation (Hohe Überabtastung)}
-		1-Bit-Quantisierung: $e_Q(nT_{\ir S}) = \pm \Delta$\\
-		Kann den Wert nicht Konstant halten, Tiefpass am Empfänger nötig
-
-		\subsubsection{Sigma-Delta-Modulator}
-		$\sum$: Summe/Integral \qquad $\Delta$: 1-bit-Quantisierer
-}
-
-
-\sectionbox{
-	\subsection{Optimale skalare Quantisierung}
-	\cookbox{Lloyd-Max-Algorithmus}{
-		\item Wähle Startwerte für alle $s_i^{(0)}$
-		\item Intervallgrenzen: $g_i^{(t+1)} = \frac{ s_i^{(t)} + s_{i-1}^{(t)} }{2}$  \qquad $i = 1, \ldots , M-1$
-		\item Reprod. Werte: $s_i^{(t+1)} = \E[\X | \X \in I_i]$ \quad\ $i = 0, \ldots , M-1$
-		\item Fehlerleistung $P_Q^{(t+1)} = \E[Q^2]$ mit $s_i^{(t+1)}$ und $g_i^{(t+1)}$
-		\item Berechne relative Änderung $\delta^{(t)} = \frac{P_Q^{(t+1)}-P_Q^{(t)}}{P_Q^{(t)}}$
-	}
-}
-
-
-
-\sectionbox{
-	\subsection{Informationsgehalt und Entropie}
-	Info vom Symbol $s_i$: $I_i = - \log_2 \P(\X_Q = s_i) = -\log_2 p_i$\\ 
-	Entropie von $\X_Q$: $H(\X_Q) = \E[I] = - \sum\limits_{i = 0}^{M-1} p_i \log_2 p_i $
-	$\left[\frac{\ir{bit}}{\ir {Symbol}}\right]$\\
-	
-	Mittlere Codewortlänge $\overline l = \E[l] = \sum \limits_{i= 0}^{n-1} p_i l_i$
-
-	Die minimale mittlere Codewortlänge $\overline l \ge H(x_Q)$
+	\subsection{Shannon-Abtasttheorem}
+	$ R_{b,max} = B ld (1+ SNR) \frac{bit}{s}$ mit $[SNR] = 1 $ 
 }
 
 
@@ -279,10 +140,10 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	%	    \caption{dB-Umrechnung}
 \end{tabular}
 
-	\subsection{Rechenregeln dB und dBm}
+	\subsection{Rechenregeln dB bzw. dBi und dBm}
 \begin{tabular}[h]{c c c}
-	dB $\mp$ dB 	& = & dB  \\
-	dBm $\mp$ dB 	& = & dBm  \\
+	dB $\mp$ dB(i) 	& = & dB  \\
+	dBm $\mp$ dB(i) 	& = & dBm  \\
 	dBm - dBm 		& = & dB  \\
 	dBm + dBm 		& = & undefiniert
 	%		\caption{dB und dBm Rechenregel zu Einheiten}
@@ -292,32 +153,27 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 
 
 % SECTION ====================================================================================
-\section{Baud-, Bit- und Übertragungsraten}
+\section{Baud-, Bit-/Übertragungsrate, Durchsatz}
 \sectionbox{
 	\subsection{Definitionen}	
-		Signalstufen		= Anzahl der möglichen annehmbaren Werte eines diskreten Signals pro Schritt \\
-		binäre Datenmenge in bit (\textbf{b}inary dig\textbf{it}) mit bit-Anzahl $\in \mathbb{N}$ \\
-		1 Byte [1B]		=	8 bit [8b] = $2^8$ \\
-		Baudrate[Hz] 	= Schrittgeschwindigkeit \\
-		Bitrate[bps] 	= $\frac{Bps}{8} = V \cdot$ Baudrate \\
 
 
-\begin{tabular}{|c|c|c|}
-	\hline 
-	Größe & Einheit & Def \\ 
-	\hline 
-	diskrete Signalstufen V & 1 & Anzahl möglicher annehmbarer Werte digitaler Signale \\ 
-	\hline 
-	Baudrate & 1 Hz & Schrittgeschwindigkeit \\ 
-	\hline 
-	Bitrate & $ 1 bps = 1 \frac{bit}{s}$ & Datenrate in bits $log_2{V} bit \cdot Baudrate$ \\ 
-	\hline 
-	binäre Datenmenge & 1 bit & 1 Byte = 8 bit \\ 
-	\hline 
-	&  &  \\ 
-	\hline 
-\end{tabular} 
+\begin{tabular*}{\columnwidth}{p{1.8cm} | p{1.6cm} | p{2.5cm}}
+	Bezeichnung & Symbol & Einheit \\ \hline
+	Datenmenge in bit & $D_b = 8 D_B $ & $[D_b] = 1 bit$   \\ \hline
+	Datenmenge in Byte & $D_B$ & $[D_B] = 1 Byte = 8 bit  $  \\ \hline
+	Signalstufen & V & [V] = 1   \\ \hline
+	Baudrate / Schrittgeschwindigkeit & $R_{baud}$ & $[R_{baud}] = 1 Hz $   \\ \hline
+	Bitrate/Brutto-Übertragungsrate & $R_b = $$ R_{baud} \cdot ld(V) bit $ & $[R_b] = 1 bps = 1 \frac{bit}{s} $  \\ \hline
+	Durchsatz/Netto-Übertragungsrate, effektiv & $R_{eff} = \frac{D_b}{t_{ges}}$ & $[R_{eff}] = 1 bps $ \\
+	
+	
+\end{tabular*}\\
 
+	Signalstufen V; Anzahl der möglichen annehmbaren Werte eines diskr. Signals pro Schritt \\
+	Zeit $t_{ges}$ ab Sendestart einer Datenmenge $D_b$ bis zum vollständigen Empfang, abhängig von verwendeten Protokollen \\
+	
+		
 %TODO: Einheitlich definieren (Name Symbol, [Symbol] = Einheit)
 %TODO: Tabellenformatierung ändern
 
@@ -356,18 +212,19 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 
 \sectionbox{
 	\subsection{Poynting-Vektor}
-	Poynting-Vektor $\tilde{S}$ ist Vektor der Leistungsflussdichte mit $[S] = 1\frac{W}{m^2}$ \\
-	$\overrightarrow{S}(x,y,z,t) = \overrightarrow{E}(x,y,z,t) \times \overrightarrow{H}(x,y,z,t)$ \\
-	Für harmonische Zeitvorgänge und EM-Wellen ($\overrightarrow{E} \sphericalangle \overrightarrow{H} = \frac{\pi}{2} $) gilt: \\
-	$S = \frac{1}{2}E \ast{H} = \frac{1}{2}H^2 Z_F = \frac{1}{2}\frac{Z_F}{E^2}$ mit $E, H \in \mathbb{C}$ \\ 
-	Wellenwiderstand im Vakuum $Z_F = \sqrt{\frac{\mu_0}{\epsilon_0}} \approx 376,73 \Omega$
+	%Herleitung Strahlungsdichte über Poynting-Vektor
+		Poynting-Vektor $\overrightarrow{S}$ ist Vektor der Leistungsflussdichte mit $[S] = 1\frac{W}{m^2}$ \\
+		$\overrightarrow{S}(x,y,z,t) = \overrightarrow{E}(x,y,z,t) \times \overrightarrow{H}(x,y,z,t)$ \\
+		Für harmonische Zeitvorgänge und EM-Wellen ($\overrightarrow{E} \sphericalangle \overrightarrow{H} = \frac{\pi}{2} $) gilt: \\
+		$\underline{S} = S = \frac{1}{2}\underline{E} \cdot \underline{H}^{*}  = \frac{1}{2}\underline{H}^2 Z_F = \frac{1}{2}\frac{Z_F}{\underline{E}^2}$ mit $E, H \in \mathbb{C}$ \\ 
+		Wellenwiderstand im Vakuum $Z_F = \sqrt{\frac{\mu_0}{\epsilon_0}} \approx 376,73 \Omega$
 	%TODO: Komplex-konjugierte Zahl nicht mit \ast kennzeichnen ... passenden LaTeX suchen
 
 
 	
-	$S_i = \frac{P_S}{4 \pi r^2}$ \\
+	$S_i = |\overrightarrow{S}|= \frac{P_S}{4 \pi r^2}$ \\
 	
-	Richtfaktor $D_i = \frac{S_{r,max}}{i} = 4 \pi r^2 \frac{S_{r,max}}{P_S}$\\
+	Richtfaktor $D_i = \frac{S_{r,max}}{S_i} = 4 \pi r^2 \frac{S_{r,max}}{P_S}$\\
 	
 	i.d.R. angegeben als $D_{i,log} = 10 log D_i dBi $ \\
 	
@@ -376,42 +233,120 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	Antennenwirkfläche $ A_W = \frac{\lambda^2}{4 \pi} G $
 	mit der Wellenlänge $\lambda = \frac{c}{f}$
 	
-	Bsp. Empfangs- und Sendeantenne im Abstand r zueinander: $P_E = P_S \cdot G_S \cdot G_E (\frac{\lambda}{4 \pi r})^2$
+	Bsp. Empfangs- und Sendeantenne im Abstand r zueinander: \\ $P_E = P_S \cdot G_S \cdot G_E (\frac{\lambda}{4 \pi r})^2$ \\
 }
 
-\section{Zugriffsverfahren}
+\section{OSI-Modell}
+% ============================================================================================
+
+\sectionbox{
+
+}
+
+
+% SECTION ====================================================================================
+\section{Zugriffsverfahren, Sicherungsschicht}
 % ============================================================================================
 
 
 \sectionbox{
-	Rahmenzeit $ \tau$ in $s$ für ein Paket \\
-	Rate $ \lambda$ in $Hz$ mit der durschnittlich Pakete gesendet werden\\
-	Zu sendende Pakete $ I $, bei keinen verlorenen Pakete gilt $ I = S $ \\
+		
+	\subsection{Definitionen}
+	%TODO: Umsortieren nach "Symbol, Name, Einheit" ev. in alphabetischer Reihenfolge
+	
+	\begin{tabular*}{\columnwidth}{p{2cm} | p{1.3cm} | p{2.5cm}}
+		Bezeichnung & Symbol & Einheit \\ \hline
+		Paketgröße in bit	& $ D_P $ & $[D_P] = 1 bit $ \\ \hline
+		Rahmenzeit für ein Paket & $ \tau = \frac{D_P}{R_b}$ &  $[\tau] = 1 s$ \\ \hline
+		Signallaufzeit (transmission time) & $ t_t $ & $[t_t] = 1 s $ \\ \hline
+		Round-Trip-Time/-Delay & $ RTT = RTD = 2 \cdot t_t $ & $[t_t] = 1 s $ \\ \hline
+		durschnittliche Paketsende-Rate & $\lambda$ & $[\lambda] = 1 Hz $ \\ \hline
+		Input, zu sendende Pakete & $ I $ & $[I] = 1 $ \\ \hline
+		Kanalauslastung / Gesamt Übertragungsversuche & $ G = \lambda \cdot \tau $ & $[G] = 1$ \\ \hline
+		Throughput, kein Konflikt & $ S $, ideal $ S=G $ & $[S] = 1$
+		
+	\end{tabular*}\\
+	
+	
+	
+	Bei keinen verlorenen Pakete gilt $ I = S $ \\
 	Anzahl Übertragungsversuche bzw. Kanalauslastung $ G = \lambda \cdot \tau $ \\
 	Anzahl erfolgreich übertragener Pakete pro Rahmenzeit $ S $, ideal $ S = G $ \\
+}
 
-	\textbf{Stop and Wait} \\
-	
-	\textbf{Pipelining} \\
-	Wartezeit nur wenn 
+\sectionbox{
+\subsection{Zugriffsverfahren}
 
+	Ziel: Medienzugangskontrolle durch Paket-Kollisionsvermeidung und -endteckung \\
+
+
+	\includegraphics[width = 6cm]{./img/ALOHA_Datendurchsatz.png}
 
 	%TODO: Graphik Datendurchsatz bei ALOHA einfügen Folie 12 Zugriffsverfahren,
-	\subsection{Pure ALOHA}
+	\textbf{Pure ALOHA}
 		Zufällige Sendung von Paketen durchschnittlich alle $\frac{1}{\lambda}$ mit Paketen der zeitlichen Rahmenlänge $ \tau $ \\
 		
 		Potentielle Kollisionszeit $ = 2 \tau $ \\
 		$ S = G \cdot e^{-2G} $ mit $ S_{max}(G = G_{max} = 0,5) = 0,184 $
 
-	\subsection{Slotted ALOHA}
+	\textbf{Slotted ALOHA}
 		Zufälliges Senden von Paketen durschnittlich alle $\frac{1}{\lambda}$ zu Beginn eines Zeitslots mit Paketen der zeitlichen Rahmenlänge $ \tau $ \\
 		
 		Potentielle Kollisionszeit $ = \tau $ \\
-		$ S = G \cdot E^{-G} $ mit $ S_{max}(G = G_{max} = 1) = 0,368 $
+		$ S = G \cdot E^{-G} $ mit $ S_{max}(G = G_{max} = 1) = 0,368 $ \\
 		
-	\subsection{CSMA/CD}
-		Carrier Sense Multiple Access / Collision Detection \\
-		Ethernet:  Min. Nachrichtenlänge $ > $  Max. Konfliktdauer oder ev. künstl. Nachrichtenverlängerung mit Padding Bits \\
+	\textbf{1-persistent CSMA} (Carrier Sense Multiple Access) \\
+		regelmäßige Überprüfung auf freien Kanal, wenn frei, dann Paketsendung mit Wahrscheinlichkeit 1 \\
+		
+	\textbf{Non-persistent CSMA} (Carrier Sense Multiple Access ) \\
+		unregelmäßige Überprüfung auf freien Kanal, wenn frei, dann Paketsendung mit Wahrscheinlichkeit 1 \\
+	
+	\textbf{p-persistent CSMA} (Carrier Sense Multiple Access )  \\
+		regelmäßige Überprüfung auf freien Kanal, wenn frei, dann Paketsendung mit Wahrscheinlichkeit p \\
+		
+	\textbf{CSMA/CD} (Carrier Sense Multiple Access / Collision Detection) \\
+		Bestimmung Ethernet:  Min. Nachrichtenlänge $ > $  Max. Konfliktdauer oder ev. künstl. Nachrichtenverlängerung mit Padding Bits \\
+
+	\includegraphics[width = 6cm]{./img/CSMA_CD.png}
+
+}
+
+
+\sectionbox{
+\subsection{Sicherungsschicht}
+
+
+\textbf{Stop and Wait} \\
+	Senden eines Pakets, Warten auf Bestätigung (ACK), Senden des nächsten Pakets, usw. \\
+	$R_eff = \frac{D_p}{\frac{D_p}{R_b} + 2 t_t}$ wenn $t_t$ für Hin- und Rückweg gleich. \\
+
+\textbf{Pipelining} \\
+	Fenstergröße $D_W$ in bits bestehend aus $n$ Paketen\\
+
+	Bestätigung von Paket 1 muss ankommen, bevor die Fenstergröße in bits versendet wurde, damit keine Wartezeiten anfallen. \\
+
+
+	Fall 1 (ideal): Für $\frac{D_W}{R_b}  \le \frac{D_P}{R_b} + 2t_t$ \\ gilt: $R_{eff} = R_b$ \\
+	Fall 2 (Wartezeiten): Für $\frac{D_W}{R_b} < \frac{D_P}{R_b} + 2t_t$  \\ gilt $R_{eff} = \frac{D_W}{\frac{D_b}{R_b} + 2 \cdot t_t }$ \\ 
+	
+
+\textbf{Go-back ohne Puffer} \\
+	Sender überträgt, wenn nach Senden eines Pakets und Verstreichen eines Timeout-Intervall kein ACK für das Paket einging, sämtliche Daten ab dem unbestätigten Rahmen neu. \\
+
+\textbf{Go-back-n mit Puffer} \\
+	Genauso wie ohne Puffer, nur das nach Erhalt des ACK für das erneut gesandte Paket beim ersten noch nicht gesendeten Paket weiter gesendet wird. \\
+	
+\textbf{Selective repeat}
+	Bei Nichtüertragung eines Pakets wird nach Timeout-Intervall nur das nicht korrekt übertragene Paket neu gesandt, alle weiteren werden gepuffert. \\
+	
+\textbf{HDLC (High Level Data Link Control)} \\
+
+	\includegraphics[width = 6cm]{./img/HDLC_Rahmen.png}
+	 Flag: 01111110; Bit stuffing (Bitstopfen) um Flag eindeutig zu halten\\
+
+\textbf{CRC} \textbf{C}yclic \textbf{R}edundancy \textbf{C}heck\\
+
+\includegraphics[width = 6cm]{./img/CRC_Bsp.png}
 }
 
 
@@ -422,6 +357,7 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	Komprimierung: Falls Bitstrom nicht gleichverteilt und mit Gedächtnis\\
 	Maximale Kompression: Bits gleichverteilt, ohne Gedächtnis\\
 	Entropie: kein Code kann für $\Z$ eine geringere mittlere Codewortlänge finden als $H(z) = \sum \P(z) \ld\left(\frac{1}{\P(z)}\right)$\\
+
 \sectionbox{
 	\subsection{Kompression}
 	Kleiner Verlust bei unkodierten Bitstrom. Großer Gewinn bei Kodierung.\\
@@ -452,314 +388,76 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	% Kanal lässt bestimmte Frequenzen durch: Luft hat bei 60GHz ein Minimum weil Wassermoleküle dagegen schwingen.
 }
 
+
 \sectionbox{
+	\subsection{Informationsgehalt und Entropie}
+	Info vom Symbol $s_i$: $I_i = - \log_2 \P(\X_Q = s_i) = -\log_2 p_i$\\ 
+	Entropie von $\X_Q$: $H(\X_Q) = \E[I] = - \sum\limits_{i = 0}^{M-1} p_i \log_2 p_i $
+	$\left[\frac{\ir{bit}}{\ir {Symbol}}\right]$\\
 	
+	Mittlere Codewortlänge $\overline l = \E[l] = \sum \limits_{i= 0}^{n-1} p_i l_i$
+	
+	Die minimale mittlere Codewortlänge $\overline l \ge H(x_Q)$
+}
+
+\sectionbox{
 	\subsection{Hamming-Code(N,n)}
 	N Nachrichtenbits mit $ N = 2^k - 1 = n + k $\\
 	n Datenbits \\
 	k Paritybits \\
 }
 
-
-
-\columnbreak
-% SECTION ====================================================================================
-\section{Basisbandübertragung}
-% ============================================================================================
-%PAM: Puls-amplituden-modulations-verfahren\\
-
-%	Wie wählt man $g(t)$?\\
-%	Ressourcen: Zeit, Bandbreite, Energie, (Raum)\\
-
-
 \sectionbox{
-	\subsection{Impulsformen}
-		\subsubsection{Rechteckimpuls $\rect\left(\frac{t}{T}\right)$:}
-		$g_{\ir NRZ}(t) = \begin{cases}
-			1, &\text{ für } \abs{t} < \frac T 2 \\
-			\frac 1 2, &\text{ für } \abs{t} = \frac T 2 \\
-			0, &\text{ sonst }			
-		\end{cases}$
-		\hfill $G_{\ir NRZ}(f) = T \sinc (fT)$\\ %T \frac{\sin(\pi f T)}{\pi f T}
-		\includegraphics{./img/FT/NRZ_t.pdf} \hfill  \includegraphics{./img/FT/NRZ_f.pdf}
-
-		\subsubsection{Manchester Impuls:} 
-
-		$g(t) = - g_{\ir NRZ} (t) + 2 g_{\ir NRZ} (2 t) = \begin{cases}
-			1, &\text{ für } \abs{t} < \frac T 4 \\
-			0, &\text{ für } \abs{t} = \frac T 4 \\
-			-1, &\text{ für } \frac T 4 < \abs{t} < \frac T 2 \\
-			- \frac{1}{2},  &\text{ für } \abs{t} = \frac T 2 \\
-			0, &  \text{ sonst } \\
-		\end{cases}$
-
-		$G(f) = T \left( \frac{\sin ( \pi f \frac T 2 )}{\pi f \frac T 2 } - \frac{\sin ( \pi f T)}{\pi f T}\right)$ % = T(\sinc(fT/2) - \sinc(fT))$
-
-		\includegraphics{./img/FT/manchester_t.pdf} \hfill\includegraphics{./img/FT/manchester_f.pdf}
-
-		Mittelwert Null, kein Gleichanteil
-		\subsubsection{$\cos^2$-Impuls:} 
-		$g(t) = \begin{cases}
-			\cos^2\left(\frac{\pi t}{T}\right), &\text{ für } \abs{t} < \frac{T}{2}\\
-			0, & \text{ sonst }
-		\end{cases} $
-		
-
-		$G(f) = \frac{T}{2} \frac{\cos(\pi f \frac{T}{2})}{1 - (fT)^2} \frac{\sin (\pi f \frac T 2)}{\pi f \frac T 2}$
-
-		\includegraphics{./img/FT/cos2_t.pdf} \hfill \includegraphics{./img/FT/cos2_f.pdf}
-
-		\subsubsection{$\sinc$-Impuls: $\sinc(x) = {\rm si}(\pi x)$}
-		$g(t) = \frac{\sin (\pi \frac t T)}{\pi \frac t  T} = \sinc\left(\frac{t}{T}\right)$ \hfill
-		$G(f) = \begin{cases}
-			T, &\text{ für } \abs{f} < \frac{1}{2T}\\
-			\frac T 2 , &\text{ für } \abs{f} = \frac{1}{2T}\\
-			0, &\text{ sonst } \\
-		\end{cases}$
-
-		\includegraphics{./img/FT/sinc_t.pdf} \hfill \includegraphics{./img/FT/sinc_f.pdf}
-		\subsubsection{„Nyquist roll-off“-Impuls:}
-
-		$g(t) = \frac{\sin (\pi \frac t  T)}{\pi \frac t  T} \cdot \frac{\cos (\alpha \pi \frac t T )}{1 - 4 \alpha^2 (\frac t T )^2}$
-
-		$G(f) = \begin{cases}
-			T &\text{für} \abs{f} \le \frac{1 - \alpha}{2T} \\
-		\frac{T}{2} [ 1 + \cos ( \frac{\pi T}{\alpha} ( \abs{f} - \frac{1 - \alpha}{2T}) ) ] &\text{für} \frac{1 - \alpha}{2T} < \abs{f} \le \frac{1 + \alpha}{2T} \\
-			0 & \text{sonst} 
-		\end{cases}$
-
-		\includegraphics{./img/FT/nyquist_t.pdf} \hfill \includegraphics{./img/FT/nyquist_f.pdf}
-
-		\subsubsection{Root-Raised-Cosine:}
-		Meist genutzer Filter (Wurzel-Nyquist)
-		\subsubsection{Gauß-Impuls:}
-		$g(t) = \exp\left[ -\pi\left( \frac{t}{\Delta t} \right)^2 \right]$
-
-		$G(f) = \Delta t \cdot \exp \left(  - \pi \left(\Delta t f \right)^2 \right) = \frac{1}{\Delta f} \exp \left(- \pi \left( \frac{f}{\Delta f} \right)^2 \right)$
-		\includegraphics{./img/FT/gauss_t.pdf} \hfill \includegraphics{./img/FT/gauss_f.pdf}
-}
-
-\columnbreak
-
-% TODO: Skript Seite 56 + FT von Aufgabe 18a) von SUM D_n d(t-nT) --> SUM D_n e^(-j2Pi n f T)
-	
-\sectionbox{
-	\subsection{Energie wichtiger Impulse mit Amplitude $A$}
-	\begin{tabular}{@{}ll}
-	$E_{S}\{\rect(\frac{t}{\alpha T})\} = A^2 \alpha \abs{T}$ & $E_{S}\{\tri(\frac{t}{\alpha T})\} = \frac{2}{3} \alpha \abs{T} A^2$\\
-	$E_{S}\{\sinc(\frac{t}{\alpha T})\} = A^2 \abs{\alpha} \abs{T}$ & Rampe 0 bis $\alpha T$: $\frac{\alpha}{3} \abs{T} A^2$\\
-	\end{tabular}
-}
-
-
-\sectionbox{	
-	\subsection{Bandbreite}
-	Absolut: Alle positiven Frequenzen\\
-	B$_{99}$ Bandbreite: 99\% der Signalenergie bzw. -leistung liegen in diesem Bandbreitenbereich (geht auch mit 90\%)\\
-	B$_{\ir 6dB}$ Bandbreite: Bis Hälfte des Spektrums $G(f)$\\
-	B$_{\ir 3dB}$ Bandbreite: Bis Hälfte der Leistung\\
-	B$_N$ Äquivalente Rauschbandbreite\\
-	
-	Bandbreiteneffizienz (Effizienz des Modulationsverfahrens):
-
-	$\eta = \frac{\text{Übertragungsrate}}{\text{NF Bandbreite}}$ \qquad $\unitof{\eta} = \frac{\si{bit/s}}{\si{\hertz}}$
-
-	Beispiel GSM: $\eta = 0.88 \frac{\si{bit/s}}{\si{\hertz}}$, \quad LTE: $\eta = \frac{3 \si{Gbit/s}}{100 \si{\mega \hertz}} = 30 \frac{\si{bit/s}}{\si{\hertz}}$\\
-}
-
-
-\sectionbox{
-	\subsection{Frequenz-Zeit-Unschärfe}
-	\emphbox{Ein Signal kann nicht gleichzeitig hart Band- und Zeitbegrenzt sein!\\
-	\textbf{Unschärfe:} $T_D \cdot B_0 \ge \frac{1}{4\pi}$ }
-	%$E = \int\limits_{-\infty}^\infty g^2(t) \diff t = \int\limits_{-\infty}^\infty \abs{G(f)}^2 \diff f$\\
-	%Bandbreite: $B_0^2 = \frac{1}{E} \int\limits_{-\infty}^\infty f^2 \abs{G(f)}^2 \diff f$\\
-	%$T_D^2 = \frac{1}{E} \int\limits_{-\infty}^\infty t^2 \abs{g(t)}^2 \diff t$\\
-	Nach Trägheitsradius definiert. (Integral $\int\limits_{-\infty}^\infty t^2 g_{\ir s}^2 \diff t$ konvergiert)
-
-	\textbf{Schrankenfunktion für Spektrum:}\\
-	Falls das Zeitsignal in der $n$-ten Ableitung das \emph{erste} mal einen Sprung aufweist, gilt für das Betragsspektrum:\\
-	\emphbox{ $\displaystyle \abs{X(f)} \propto \frac{1}{\abs{f}^{n+1}}$ \qquad für große $\abs{f}$}\\
-	Anmerkung: $n$ kann auch negativ sein! Bsp: $\dirac(t) \Ra n = -1$
-}
-
-\sectionbox{
-\subsection{Nyquist Bedingungen}
-	\subsubsection{1. Bedingung: Kein Symbolübersprechen}
-	Impulsantwort $g[nT] = \begin{cases} 1 & n = 0 \\ 0 & n \ne 0 \end{cases}$\\
-	Fordert maximale vertikale Öffnung des Auges\\
-	Impuls Nullstellen: $\pm 1T, \pm 2T, \pm 3T, \ldots$\\
-
-	Zeitbereich: $A \{ g(t) \} = T \sum \limits_{n = - \infty}^{\infty} g(nT) \cdot \delta (t - nT) = T \cdot \delta (t)$
-	Frequenzbereich: $P \{ G(f) \} = \sum \limits_{k = - \infty}^{\infty} G(f - \frac{k}{T}) = T$
-
-	\subsubsection{2. Bedingung: Verschärfung 1. Bedingung}
-	Impulsantwort $g \left[k \frac{T}{2}\right] = \begin{cases} 1 & k = 0 \\ g\left[\frac{T}{2}\right] & k = \pm 1 \\ 0 & \text{sonst} \end{cases}$\\
-	Fordert maximale horizontale Öffnung des Auges\\
-	Zusätzliche Impuls Nullstellen: $\pm 1.5T, \pm 2.5T, \pm 3.5T, \ldots$\\
-}
-
-
-\sectionbox{
-\subsection{Augendiagramm}
-\pbox{3cm}{\includegraphics[width = 2.5cm]{./img/auge3.jpg}}
-\pbox{4cm}{Bestimmung des Augendiagramm (4 Durchläufe): Für die Bereiche $[-T_{\ir A},0]$ und $[0,T_{\ir A}]$ werden die relevanten Pulse
-so überlagert(positiv oder negativ), dass das Auge minimal wird. Daraus ergibt sich die Überlagerungstabelle.}\\
-
-\parbox{2.5cm}{Beispiel mit \\ 1 Vor- und 2 Nachläufern:}
-\tabcolsep0.5em
-\begin{tabular}{lll|lll}
-$D_{-2}$ & $D_{-1}$ & $D_{1}$ & $\boldsymbol D_{-1}$ & $\boldsymbol D_{1}$ & $\boldsymbol D_{2}$\\
-$+1$ & $-1$ & $-1$ & $-1$ & $-1$ & $+1$\\ \mrule
-$-1$ & $+1$ & $+1$ & $+1$ & $+1$ & $-1$\\
-\end{tabular}
-
-\begin{description}
-	\item[Vertikale Öffnung $A_v$:] Maß für Empfindlichkeit gegenüber Rauschen
-	\item[Horizontale Öffnung $A_h$:] Maß für Empfindlichkeit gegenüber Schwankungen des Abtastzeitpunkts
-\end{description}
+	\subsection{Huffmann-Code}
 }
 
 
 
 
 
-\sectionbox{
-\subsection{Korrelation}
-Ein Maß für die Ähnlichkeit zweier Signale $x(t), y(t)$ bei Verschiebung.\\
-Korrelationskoeffizient $\rho_{xy} = \frac{E_{xy}}{\sqrt{E_x \cdot E_y}} = \frac{\varphi_{xy}(0)}{ \sqrt{\varphi_x(0) \cdot \varphi_y(0)}}$\\
-\\
-Es gilt: Korreliert $\rho = 1$, Orthogonal $\rho = 0$, Antipodisch $\rho = -1$\\
-\\
-\textbf{Kreuzkorrelationsfkt.} zwischen zueinander verschobenen Signalen:\\
-	\emphbox{ $\displaystyle \varphi_{xy} (\tau) =  \varphi_{yx}(-\tau) = \int\limits_{-\infty}^{\infty} x(t) \cdot y(t+\tau) \diff t$ }
-	Zusammenhang mit Faltung: $\varphi_{xy} (\tau) = x(-t) * y(t)|_{t = \tau}$\\
-	\\
-\textbf{Autokorrelationsfkt. AKF} ist Kreuzkorrelation mit sich selbst ($y = x$):\\
-$\varphi_x (\tau) = \varphi_{xx}(\tau)$ \qquad Anwendung: Erkennen von Perioden\\ 
-\\
-\textbf{Energiebeziehung:} $E_{x,y} = \rho_{x,y} \sqrt{E_x E_y}$ mit \\
-\textbf{Energie} $E_x = \int\limits_{- \infty}^{\infty} x(t)^2 \diff t = \int\limits_{- \infty}^{\infty} \Phi_x \diff f = \varphi_{xx}(0)$ \quad (endl. Sig.)\\
-\textbf{Leistung} $P_x = \E[\X^2] = \frac{1}{2T} \int\limits_{-T}^{T} x(t)^2 \diff t$ \qquad\qquad (period. Sig.)\\
-\textbf{Leistungsdichtespektrum} $\Phi_x(f)$ ist definiert als $\varphi_x \FT \Phi(f)$\\
-
-Periodische Signale: $\overline \varphi_{xy}(\tau) = \frac{1}{2T} \int_{-T}^{T} x(t) y(t+\tau) \diff t$\\
-\textbf{Stochastische Signale:} $\varphi_{\X\Y}(\tau) = \E[\X(t) \cdot \Y(t+\tau)]$\\
-$\rho_{\X,\Y} = \frac{\Cov[\X \Y]}{\sigma_{\X} \sigma_{\Y}}$\\
-$\int \limits_{-\infty}^{\infty} \PSD_{\X}(f) \diff f = \ACF_{\X}(0) = \Var[\X] + \E[\X]^2 = \sigma^2_{\X} + \mu^2_{\X}$
-}
-
-
-
-
-% SECTION ====================================================================================
-\section{Analoger Übertragungskanal}
-% ============================================================================================
-
-
-$r(t) = h(t) * s(t)$ \qquad $R(f) = H(f) \cdot S(f)$\\ 
-Verzerrungsfrei: $h(t) = h_0 \dirac(t-t_0)$ \qquad $H(f) = h_0 e^{-\i 2 \pi f t_0}$
-
-
-\sectionbox{
-	\subsection{\textsc{AWGN} -- Additive White Gaussian Noise}
-	Weißes Rauschen $\textit{N}$ enthält alle Frequenzen. Thermisch: $N_0 = k_{\ir B} T$\\
-	\begin{tabular}{lll}
-	PDF & $f_\textit{N}(n) = \frac{1}{\sqrt{2\pi} \cdot \sigma} e^{-\frac{n^2}{2\sigma^2}}$\\[0.5em]
-	LDS: & $\Phi_\textit{N}(f) := \frac{N_0}{2}$ &für $f < \SI{10}{\giga \hertz}$\\[0.5em]
-	AKF: & $\varphi_n(\tau) = \frac{N_0}{2} \delta(\tau)$ & $\Ra 0$ für $\tau \ne 0$\\[0.5em]
-	Leistung & $P_\textit{N} = \int \Phi_\textit{N} \diff f = \sigma^2 = B \cdot N_0$\\
-	\end{tabular}
-
-	Äquivalente Rauschbandbreite $B_N$: Bandbreite eines idealen Tiefpasses, der die selbe Rauschleistung $P_N$ erzeugt, 
-	wie das reale Tiefpassfiltersystem.
-}
-
-
-
-
-% SECTION ====================================================================================
-\section{Detektion im Rauschen}
-% ============================================================================================
-\sectionbox{
-	\includegraphics[width = \columnwidth]{./img/detection.pdf}
-
-	gewähltes Bit $\hat D_n$ eines tatsächlichen Bits $D_n = \eset{1,0}$\\
-	Ziel: $\P(\hat D_n \ne D_n)$ soll minimal sein.\\
-	Lösung: maximiere SNR zum Abtastzeitpunkt $nT$\\
-	Rauschleistung nach Filterung mit $h(t)$:\\
-	$P_\textit{N} = \int\limits_{-\infty}^\infty \Phi_\textit{N} \abs{H(f)}^2 \diff f = \frac{N_0}{2} \int\limits_{-\infty}^\infty \abs{H(f)}^2 \diff f$ 
-
-	$\ra $ mit Satz von Parseval gilt : $ P_{\ir N} =  \frac{N_0}{2} \int\limits_{-\infty}^{\infty} \abs{ h(t)}^2 \diff t$
-
-	momentane Signalleistung: $P_s(t) = \abs{y_s(t)}^2$
-
-	mittlere Signalleistung: $P_s = \lim\limits_{T \rightarrow \infty} \frac{1}{2T} \int\limits_{-T}^{T} \abs{y_{s}(t)}^2 \diff t$
-
-}
-
-\sectionbox{
-	\subsection{Matched Filter}
-	Signalangepasster Filter damit Signal im AWGN Kanal zum Abtastzeitpunkt die maximale SNR hat.
-	Impulsantwort des Matched Filters:\\ $h_{\ir MF}(t) = K \cdot \cxc g_s(T-t)$ \qquad (entspricht gewendetem Sendeimpuls)\\
-	$H_{\ir MF}(f)=K\cdot \cxc G_s(f)\cdot \e^{-\j 2\pi f T}$\\
-	Maximum SNR: $\frac{P_s}{P_N} = \frac{2E_s}{N_0}$\\
-}
-
-\sectionbox{
-	\subsection{Fehlerwahrscheinlichkeit $\P_b$}
-	% Alle Pulse mit gleicher Energie haben die gleiche Fehlerwahrscheinlichkeit?
-	\includegraphics[width = 4cm]{./img/noisedetection.pdf}\\
-	$\P_b = \frac{1}{\sqrt{2 \pi}} \cdot \int_{z_0}^\infty e^{\frac{-z^2}{2}} \diff z = Q(z_0) = \frac{1}{2} \erfc\left(\sqrt{\frac{1}{2} \SNR}\right)$\\
-	Substituiere $z_0$\\
-	Für matched Filter: $\P_b = Q(\sqrt{P_s / P_n}) = Q(\sqrt{Y_s^2 / \sigma_N^2}) = Q(\sqrt{2 E_s / N_0}) = Q(\sqrt{\SNR})$
-}
-
-\sectionbox{	
-	\subsection{Zeitdiskreter AWGN-Kanal}
-	$\sigma^2 = \frac{\sigma_\textit{N}^2}{A^2} = \frac{N_0}{2 E_s} = \frac{1}{\SNR}$\\
-}
-
-\sectionbox{	
-	\subsection{Unabhängiges (unkorreliertes) Rauschen}
-	Falls die erste Nyquistbedingung erfüllt und maximale SNR: \\ $\Ra$ Die Folge abgetasteter Rauschanteile ist unabhängig!
-}
 
 
 
 % SECTION ====================================================================================
 \section{Lineare, digitale Modulation}
 % ============================================================================================
+
 \sectionbox{
-\subsection{Allgemeines}
-	Dimensionen: Phase (sin/cos), Polarisation (hori/vert)
-
-	Die meisten Medien übetragen um eine Trägerfrequenz $f_0$ (Bandpass)\\
-
-	Bandpass-Sendesignal (moduliert mit $S(t)$): \\ 
-	$\tilde S(t) = A(t) \sqrt{2} \cos\left(2 \pi (f_0+F(t)) t + \varphi_0(t)\right)$\\
-
-	Inphasenanteil (Cosinusträger) $S_I(t) = A(t) \cos(\varphi'(t))$
-
-	Quadraturanteil (Sinusträger) $S_Q(t) = A(t) \sin(\varphi'(t))$
-
-	Amplitude: $\abs{A(t)} = \sqrt{S_I^2(t) + S_Q^2 (t)}$
-
-	Phase: $\varphi' (t) = \arctan \frac{S_Q (t)}{S_I (t)}$
+	\subsection{Allgemeines}
+	Informationsfluss:\\
+	Info-Quelle -> Codierung -> Modulation -> Kanal -> Demodulation -> Decodierung -> Info-Senke \\
 	
-	Mittl. Energie pro Symbol: $\ol E_S = \E[D_{I_n}^2 + D_{Q_n}^2] \cdot \underbrace{\int_0^T \abs{g_s (t)}^2 \diff t}_{E_{g_s}}$
-	Energie je Bit : $E_{\ir bit}=\frac{\ol E_S}{\text{\# Bits}}$\\
 
-	Anfälligkeit gegenüber Rauschen: $d_{\ir min} $
+
+%	
+%	Dimensionen: Phase (sin/cos), Polarisation (hori/vert)
+%	
+%	Die meisten Medien übetragen um eine Trägerfrequenz $f_0$ (Bandpass)\\
+%	
+%	Bandpass-Sendesignal (moduliert mit $S(t)$): \\ 
+%	$\tilde S(t) = A(t) \sqrt{2} \cos\left(2 \pi (f_0+F(t)) t + \varphi_0(t)\right)$\\
+%	
+%	Inphasenanteil (Cosinusträger) $S_I(t) = A(t) \cos(\varphi'(t))$
+%	
+%	Quadraturanteil (Sinusträger) $S_Q(t) = A(t) \sin(\varphi'(t))$
+%	
+%	Amplitude: $\abs{A(t)} = \sqrt{S_I^2(t) + S_Q^2 (t)}$
+%	
+%	Phase: $\varphi' (t) = \arctan \frac{S_Q (t)}{S_I (t)}$
+%	
+%	Mittl. Energie pro Symbol: $\ol E_S = \E[D_{I_n}^2 + D_{Q_n}^2] \cdot \underbrace{\int_0^T \abs{g_s (t)}^2 \diff t}_{E_{g_s}}$
+%	Energie je Bit : $E_{\ir bit}=\frac{\ol E_S}{\text{\# Bits}}$\\
+%	
+%	Anfälligkeit gegenüber Rauschen: $d_{\ir min} $
 }
 
 \sectionbox{
 	\subsection{Modulation und Signalraumzuordnung}
-
+	
 	\includegraphics[width=\columnwidth]{img/QAM_Sender.jpg}
-
+	
 	Moduliertes Sendesignal
-
+	
 	$\tilde S (t) = S_I (t) \sqrt{2} \cos (2 \pi f_0 t) - S_Q (t) \sqrt{2} \sin (2 \pi f_0 t) $ \\
 	$= \left[ \sum \limits_{n = - \infty}^{\infty} D_{I_n} g_s (t - n T) \right] \sqrt{2} \cos (2 \pi f_0 t)$\\
 	$-  \left[ \sum \limits_{n = - \infty}^{\infty} D_{Q_n} g_s (t - n T) \right] \sqrt{2} \sin (2 \pi f_0 t)$ 
@@ -767,11 +465,24 @@ Verzerrungsfrei: $h(t) = h_0 \dirac(t-t_0)$ \qquad $H(f) = h_0 e^{-\i 2 \pi f t_
 
 \sectionbox{
 	\subsection{Modulationsarten} 
-	linear: AM $A(t)$, ASK, PSK\\
-	nicht linear: FM $F(t)$, PM $\varphi(t)$, FSK\\
-	Probleme: Nichtlineare Verstärker verzerren Raumpunkte
-	\includegraphics{./img/SK.pdf}\\
-	\includegraphics[width = 6cm]{./img/digimod.jpg}
+	Amplitudenmodulation ASK \\
+	Frequenzmodulation FSK (Winkelmodulation) \\
+	Phasenmodulation PSK (Winkelmodulation) \\
+	Quadraturmodulation QAM \\
+	
+	Modulation mit Sinusträger: $a(t) = A(t)\cdot cos(\omega_0 t - \phi(t))$
+	Amplitudenmodulation wirkt sich nur auf $A(t)$ aus \\
+	Winkelmodulation wirkt sich nur auf $\phi(t)$ \\
+	
+%	\includegraphics{./img/SK.pdf}\\
+%	\includegraphics[width = 6cm]{./img/digimod.jpg}
+	\includegraphics[width = 6cm]{./img/2-ASK_2-FSK_2-PSK.png}
+	\includegraphics[width = 6cm]{./img/QAM_Sender2.png}
+	
+	\textbf{Spread Spectrum} durch Direct Sequence (DS) oder Frequency Hopping (HS) \\
+	Schützt vor Schmalbandstörern (Militär) und freuquenz-selektives Fading (Mobilfunk) \\
+	
+	
 }
 
 
@@ -1199,7 +910,9 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 
 
 \section{Naturkonstanten}
-\sectionbox
+\sectionbox{
+Konstanten...
+}
 
 
 % Ende der Spalten
@@ -1220,3 +933,551 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 		|t^n| 					& \FT \frac{2n!}{(\i \omega)^{n+1}}\\
 		\tri(\frac{t}{T}) 		& \FT T \sinc^2(\omega T)		& \rect(\frac{t}{2T})		& \FT 2T \sinc(\omega T) \\
 	\end{align*}
+
+
+% SECTION ====================================================================================
+\section{Aussortiert}
+% ============================================================================================
+% Ab hier folgen aussortierte (Sub)-sections
+
+
+
+
+% SECTION ====================================================================================
+\section{Signale}
+% ============================================================================================
+\sectionbox{
+	\subsection{Sonstiges}
+	Autokorrelation $r_{\textsf{V}}(\tau) \FT S_{\textsf{V}}(f)$ Leistungsdichtespektrum
+	$x(t),y(t)$ sind orthogonal, falls $\int\limits_{-\infty}^\infty x(t)y(t) = 0$\\
+	Kompl. Fehlerfunktion $\erfc(x) = 1 - \erf(x) = \frac{2}{\sqrt{\pi}} \int\limits_{x}^\infty e^{- \tau^2} \diff \tau$
+}	
+
+
+
+% SECTION ====================================================================================
+\section{Abtastung von Signalen}
+% ============================================================================================
+\sectionbox{
+	
+	\subsection*{Abtasttheorem}
+	Signal $x(t)$, Abtastfunktion $s(t) = T_A \sum \delta(t-nT_s)$, \\
+	Tiefpassfilter $h_r(t)$\\
+	\\
+	\begin{tabular*}{\columnwidth}{@{\extracolsep\fill}lll@{}}
+		Vorgang & Zeitbereich & Frequenzbereich\\
+		Abtasten: & $x_s(t) = s(t) \cdot x(t)$ & $X_s(\omega) = S(\omega) * X(\omega)$\\
+		Rekonstr. & $x_r(t) = h_r(t) * x_s(t)$ & $X_r(\omega) = H_r(\omega) \cdot X_s(\omega)$\\
+	\end{tabular*}\\
+	\\
+	\begin{center} \includegraphics[scale = 1]{./img/sampletheorem.pdf} \end{center}
+	
+	Bandbreite $\omega_g$, Abtastfrequenz $\omega_s$\\
+	\\
+	\boxed{ \omega_s = \frac{2 \pi}{T_s} \ge 2 \omega_g } \qquad \boxed{ \omega_g \le \omega_r \le \omega_s - \omega_g }
+	
+	Abtastoperator: $\mathbb A\{x(t)\} = x(t) \cdot T_A \sum \limits_{n = - \infty}^{\infty} \delta (t - n T_A)$ \\
+	Rekonstruktion: $x_r(t) = T_{\ir A} \sum \limits_{n = - \infty}^{\infty} x(n T_{\ir A}) \cdot h_r(t - nT_{\ir A})$\\
+	Abbruchfehler: $\abs{\Delta} = \abs{\frac{x_r(t) - x(t)}{x(t)}}$\\
+	Periodisierungsoperator: $\mathbb P \{ X(f) \} = X(f) * \sum \limits_{n = - \infty}^\infty \delta (f - \frac{n}{T_A})$
+	
+	Ideale Abtastung:
+	$\mathbb A \{x(t) \} \overset{f_A = 1 / T_A}{\ftsymbol} \mathbb P \{ X(f) \}$
+}
+
+%Projektion: $\int\limits_{-\infty}^{\infty} x(t) \sinc\left( \frac{t- nT_A}{T_A}\right) \diff t = T_{\ir A} x(n T_A)$\\
+%$\int\limits_{-\infty}^{\infty} b_n(t) b_m(t) \diff t = \delta[m-n]$\\ 
+
+
+%Sample\&Hold: Interpolation $\rightleftarrows$ Dezimierung\\
+
+
+
+
+
+
+% SECTION ====================================================================================
+\section{Quantisierung und Digitalisierung}
+% ============================================================================================
+wertkontinuierliche Sequenz von (zeitdiskreten) Abtastwerten wird abgebildet auf wertdiskrete Sequenz.
+\begin{center}
+	$x ( n T_A)$ mit $ n \in \mathrm Z$ $\overset{x_Q}{\longrightarrow} $ $x_Q (nT_A)$
+\end{center} 
+
+\sectionbox{
+	\subsection{Allgemeines}
+	Quantisierungsfunktion $\vec x_Q = \mathcal Q(\vec x)$
+	
+	Bildet Vektoren $\vec x \in \R^N$ auf eine Menge $S$ ab mit $\abs{S} = M$
+	
+	Man benötigt $m = \ceil{\log_2 M}$ bits um $\vec x_Q$ zu repräsentieren.\\
+	Intervall $I_i = [g_i, g_{i+1}]$ enthält Reprodwert $s_i$ \\
+	
+	Skalare Quantisierer: $N=1$ \qquad Vektor Quantisierer: $N > 1$\\
+	
+	Quantisierungsfehler: $\vec q (\vec x) = \vec x_Q - \vec x = s_i - x$
+	
+	(besteht aus granularem Rauschen und Überlastungsrauschen)
+}
+
+
+\sectionbox{
+	\subsection{Skalare Quantisierung $N = 1$}
+	
+	$m$ Bits für einen ($N = 1$) Abtastwert \\
+	
+	Quantisierungsfehler $q(x) = x_Q - x = x_Q (n T_A) - x (nT_A)$
+	
+	\emphbox{
+		Quantisierungsfehlerleistung:
+		
+		$P_{\ir Q} = \int q(x)^2 f_{\X}(x) \diff x = \sum\limits_{s_i} \int_{g_i}^{g_{i+1}} (s_i - x)^2 f_{\X}(x) \diff x$ 
+	}
+	
+	Optimales $s_i$ (setze $\frac{\partial P_Q}{\partial s_i} \overset{!}{=} 0$):
+	
+	$s_i = \frac{\int \limits_{g_i}^{g_{i+1}} x f_x (x) \diff x}{\int \limits_{g_i}^{g_{i+1}}  f_x (x) \diff x} = \E \left[ \X | x \in I_i \right]$
+}
+
+
+\sectionbox{
+	\subsection{Lineare Quantisierung}
+	Spezialfall der skalaren Quantisierung mit gleich großen Quantisierungsintervallen $\Delta$.
+	
+	% TODO: Quantisierungskennlinie einfügen (Beispiel: http://home.arcor.de/rachid.nouna/Telekommunikation/Grundlagen-Dateien/image005.jpg links)
+	
+	\pbox{4cm}{\includegraphics{./img/pdf_quantization.pdf}} \ \pbox{4cm}{\includegraphics{./img/pdf_quantization_error.pdf}} \
+	\pbox{4cm}{\includegraphics{./img/quantization_error.pdf}}\\
+	\emphbox{Es gilt für PDF: $\int\limits_{-\infty}^\infty f_{\X}(x) \diff x \stackrel{!}{=} 1$}
+	
+	Gleich große Quantisierungsintervalle $\mathcal I_i=[g_i, g_{i+1}]$ mit Breite $\Delta$\\
+	$\Delta = \frac{x_{\max} - x_{\min}}{2^m} = g_{i+1} - g_i$\\ 
+	
+	Reproduktionswerte $s_i$ in der Mitte der Intervalle (midriser)\\
+	$s_i = \frac{2i - M + 1}{2} \Delta$\\ 
+	
+	Auftrittswahrscheinlichkeit $p_i$ der Quantisierungsstufe $s_i$ \\
+	$p_i=\int_{g_i}^{g_{i+1}}f_{\ir X}(x)\diff x$\\
+	
+	\emphbox{Signalleistung $P_{\ir X} = \E[\X^2] = \int\limits_{x_{\min}}^{x_{\max}} x^2 f_{\X}(x) \diff x$}\\
+	Gleichverteilung: $P_{\ir X} = \frac{x_{\max}^2}{3}$ \qquad Sinusförmig: $P_{\ir S} = \frac{x_{\max}^2}{2}$\\[1em]
+	\emphbox{Fehlerleistung $P_{\ir Q} = \E[\textit{Q}^2] = \int\limits_{-\infty}^{\infty} q(x)^2 f_{\textit{Q}}(q) \diff q$}\\
+	Bei gleichverteiltem Quantisierungsfehler: $P_{\ir Q} = \frac{\Delta^2}{12}$
+	
+	% wichtige Formel vgl. Übung 10 $P_Q = \sum \limits_{s_i} \int \limits_{-\Delta / 2}^{\Delta / 2} z^2 f_X (z + s_i) \diff z$
+	
+	\emphbox{Signal-Noise-Ratio: $\SNR_Q = \frac{P_{\ir X}}{P_{\ir Q}}$}
+	$\SNR_Q = \frac{P_{\ir X}}{P_{\ir Q}} = \begin{cases}
+	\frac{x^2_{\ir max} /3}{\Delta^2 / 12} = 2^{2m} &\text{ bei gleichverteiltem Signal }\\
+	\frac{x^2_{\ir max} /2}{\Delta^2 / 12} = \frac 3 2 2^{2m} &\text{ bei sinusförmigem Signal }\\
+	\end{cases}$\\ \\
+	Signal zu Quantisierungsrauschabstand $\SNR_{Q\si{\decibel}}$\\
+	$\SNR_{Q\si{\decibel}} = 10 \log_{10}(\SNR_Q)\si{\decibel} = m \cdot \SI{6}{\decibel}$\\
+	(CD, $\SI{16}{bit}: \SI{96}{\decibel})$	
+}
+
+
+\sectionbox{
+	\subsection{Nichtlineare Quantisierung}
+	A-law-Kennlinie (Europa) und $\mu$-law-Kennlinie (USA)\\
+	$C(x) = \begin{cases} \frac{A}{1 + \ln(A)} \cdot \abs{x} \cdot \sgn(x) & 0 \le \abs{x} \le \frac{x_{\max}}{A} \\[1em]
+	\frac{1 + \ln\left( \frac{A \cdot \abs{x}}{x_{\max}} \right)}{1 + \ln(A)} \cdot \abs{x} \cdot \sgn(x) & \text{sonst} \end{cases}$
+	
+	$A = 87.5 = \SI{24}{\decibel}$
+	
+	\subsubsection{Pulse Coded Modulation PCM}
+	Abtastung + skalare Quantisierung: $\SNR_Q = \frac{P_X}{P_Q} = 2^{2m}$
+	
+	\subsubsection{Differentielle PCM (DPCM)}
+	Differenz zu vorhergesagtem Wert wird quantisiert.\\
+	Prädiktion 0.ter Ordnung: Kann bei schnellen, großen Änderungen nicht mehr folgen.
+	Gut geeignet für Signale mit hoher zeitlicher Konzentration $\ra$ schmales Spektrum.
+	
+	\subsubsection{Delta-Modulation (Hohe Überabtastung)}
+	1-Bit-Quantisierung: $e_Q(nT_{\ir S}) = \pm \Delta$\\
+	Kann den Wert nicht Konstant halten, Tiefpass am Empfänger nötig
+	
+	\subsubsection{Sigma-Delta-Modulator}
+	$\sum$: Summe/Integral \qquad $\Delta$: 1-bit-Quantisierer
+}
+
+
+\sectionbox{
+	\subsection{Optimale skalare Quantisierung}
+	\cookbox{Lloyd-Max-Algorithmus}{
+		\item Wähle Startwerte für alle $s_i^{(0)}$
+		\item Intervallgrenzen: $g_i^{(t+1)} = \frac{ s_i^{(t)} + s_{i-1}^{(t)} }{2}$  \qquad $i = 1, \ldots , M-1$
+		\item Reprod. Werte: $s_i^{(t+1)} = \E[\X | \X \in I_i]$ \quad\ $i = 0, \ldots , M-1$
+		\item Fehlerleistung $P_Q^{(t+1)} = \E[Q^2]$ mit $s_i^{(t+1)}$ und $g_i^{(t+1)}$
+		\item Berechne relative Änderung $\delta^{(t)} = \frac{P_Q^{(t+1)}-P_Q^{(t)}}{P_Q^{(t)}}$
+	}
+}
+
+
+
+\sectionbox{
+	\subsection{Informationsgehalt und Entropie}
+	Info vom Symbol $s_i$: $I_i = - \log_2 \P(\X_Q = s_i) = -\log_2 p_i$\\ 
+	Entropie von $\X_Q$: $H(\X_Q) = \E[I] = - \sum\limits_{i = 0}^{M-1} p_i \log_2 p_i $
+	$\left[\frac{\ir{bit}}{\ir {Symbol}}\right]$\\
+	
+	Mittlere Codewortlänge $\overline l = \E[l] = \sum \limits_{i= 0}^{n-1} p_i l_i$
+	
+	Die minimale mittlere Codewortlänge $\overline l \ge H(x_Q)$
+}
+
+
+
+
+
+
+% SECTION ====================================================================================
+\section{Basisbandübertragung}
+% ============================================================================================
+%PAM: Puls-amplituden-modulations-verfahren\\
+
+%	Wie wählt man $g(t)$?\\
+%	Ressourcen: Zeit, Bandbreite, Energie, (Raum)\\
+
+
+\sectionbox{
+	\subsection{Impulsformen}
+	\subsubsection{Rechteckimpuls $\rect\left(\frac{t}{T}\right)$:}
+	$g_{\ir NRZ}(t) = \begin{cases}
+	1, &\text{ für } \abs{t} < \frac T 2 \\
+	\frac 1 2, &\text{ für } \abs{t} = \frac T 2 \\
+	0, &\text{ sonst }			
+	\end{cases}$
+	\hfill $G_{\ir NRZ}(f) = T \sinc (fT)$\\ %T \frac{\sin(\pi f T)}{\pi f T}
+	\includegraphics{./img/FT/NRZ_t.pdf} \hfill  \includegraphics{./img/FT/NRZ_f.pdf}
+	
+	\subsubsection{Manchester Impuls:} 
+	
+	$g(t) = - g_{\ir NRZ} (t) + 2 g_{\ir NRZ} (2 t) = \begin{cases}
+	1, &\text{ für } \abs{t} < \frac T 4 \\
+	0, &\text{ für } \abs{t} = \frac T 4 \\
+	-1, &\text{ für } \frac T 4 < \abs{t} < \frac T 2 \\
+	- \frac{1}{2},  &\text{ für } \abs{t} = \frac T 2 \\
+	0, &  \text{ sonst } \\
+	\end{cases}$
+	
+	$G(f) = T \left( \frac{\sin ( \pi f \frac T 2 )}{\pi f \frac T 2 } - \frac{\sin ( \pi f T)}{\pi f T}\right)$ % = T(\sinc(fT/2) - \sinc(fT))$
+	
+	\includegraphics{./img/FT/manchester_t.pdf} \hfill\includegraphics{./img/FT/manchester_f.pdf}
+	
+	Mittelwert Null, kein Gleichanteil
+	\subsubsection{$\cos^2$-Impuls:} 
+	$g(t) = \begin{cases}
+	\cos^2\left(\frac{\pi t}{T}\right), &\text{ für } \abs{t} < \frac{T}{2}\\
+	0, & \text{ sonst }
+	\end{cases} $
+	
+	
+	$G(f) = \frac{T}{2} \frac{\cos(\pi f \frac{T}{2})}{1 - (fT)^2} \frac{\sin (\pi f \frac T 2)}{\pi f \frac T 2}$
+	
+	\includegraphics{./img/FT/cos2_t.pdf} \hfill \includegraphics{./img/FT/cos2_f.pdf}
+	
+	\subsubsection{$\sinc$-Impuls: $\sinc(x) = {\rm si}(\pi x)$}
+	$g(t) = \frac{\sin (\pi \frac t T)}{\pi \frac t  T} = \sinc\left(\frac{t}{T}\right)$ \hfill
+	$G(f) = \begin{cases}
+	T, &\text{ für } \abs{f} < \frac{1}{2T}\\
+	\frac T 2 , &\text{ für } \abs{f} = \frac{1}{2T}\\
+	0, &\text{ sonst } \\
+	\end{cases}$
+	
+	\includegraphics{./img/FT/sinc_t.pdf} \hfill \includegraphics{./img/FT/sinc_f.pdf}
+	\subsubsection{„Nyquist roll-off“-Impuls:}
+	
+	$g(t) = \frac{\sin (\pi \frac t  T)}{\pi \frac t  T} \cdot \frac{\cos (\alpha \pi \frac t T )}{1 - 4 \alpha^2 (\frac t T )^2}$
+	
+	$G(f) = \begin{cases}
+	T &\text{für} \abs{f} \le \frac{1 - \alpha}{2T} \\
+	\frac{T}{2} [ 1 + \cos ( \frac{\pi T}{\alpha} ( \abs{f} - \frac{1 - \alpha}{2T}) ) ] &\text{für} \frac{1 - \alpha}{2T} < \abs{f} \le \frac{1 + \alpha}{2T} \\
+	0 & \text{sonst} 
+	\end{cases}$
+	
+	\includegraphics{./img/FT/nyquist_t.pdf} \hfill \includegraphics{./img/FT/nyquist_f.pdf}
+	
+	\subsubsection{Root-Raised-Cosine:}
+	Meist genutzer Filter (Wurzel-Nyquist)
+	\subsubsection{Gauß-Impuls:}
+	$g(t) = \exp\left[ -\pi\left( \frac{t}{\Delta t} \right)^2 \right]$
+	
+	$G(f) = \Delta t \cdot \exp \left(  - \pi \left(\Delta t f \right)^2 \right) = \frac{1}{\Delta f} \exp \left(- \pi \left( \frac{f}{\Delta f} \right)^2 \right)$
+	\includegraphics{./img/FT/gauss_t.pdf} \hfill \includegraphics{./img/FT/gauss_f.pdf}
+}
+
+\columnbreak
+
+% TODO: Skript Seite 56 + FT von Aufgabe 18a) von SUM D_n d(t-nT) --> SUM D_n e^(-j2Pi n f T)
+
+\sectionbox{
+	\subsection{Energie wichtiger Impulse mit Amplitude $A$}
+	\begin{tabular}{@{}ll}
+		$E_{S}\{\rect(\frac{t}{\alpha T})\} = A^2 \alpha \abs{T}$ & $E_{S}\{\tri(\frac{t}{\alpha T})\} = \frac{2}{3} \alpha \abs{T} A^2$\\
+		$E_{S}\{\sinc(\frac{t}{\alpha T})\} = A^2 \abs{\alpha} \abs{T}$ & Rampe 0 bis $\alpha T$: $\frac{\alpha}{3} \abs{T} A^2$\\
+	\end{tabular}
+}
+
+
+\sectionbox{	
+	\subsection{Bandbreite}
+	Absolut: Alle positiven Frequenzen\\
+	B$_{99}$ Bandbreite: 99\% der Signalenergie bzw. -leistung liegen in diesem Bandbreitenbereich (geht auch mit 90\%)\\
+	B$_{\ir 6dB}$ Bandbreite: Bis Hälfte des Spektrums $G(f)$\\
+	B$_{\ir 3dB}$ Bandbreite: Bis Hälfte der Leistung\\
+	B$_N$ Äquivalente Rauschbandbreite\\
+	
+	Bandbreiteneffizienz (Effizienz des Modulationsverfahrens):
+	
+	$\eta = \frac{\text{Übertragungsrate}}{\text{NF Bandbreite}}$ \qquad $\unitof{\eta} = \frac{\si{bit/s}}{\si{\hertz}}$
+	
+	Beispiel GSM: $\eta = 0.88 \frac{\si{bit/s}}{\si{\hertz}}$, \quad LTE: $\eta = \frac{3 \si{Gbit/s}}{100 \si{\mega \hertz}} = 30 \frac{\si{bit/s}}{\si{\hertz}}$\\
+}
+
+
+\sectionbox{
+	\subsection{Frequenz-Zeit-Unschärfe}
+	\emphbox{Ein Signal kann nicht gleichzeitig hart Band- und Zeitbegrenzt sein!\\
+		\textbf{Unschärfe:} $T_D \cdot B_0 \ge \frac{1}{4\pi}$ }
+	%$E = \int\limits_{-\infty}^\infty g^2(t) \diff t = \int\limits_{-\infty}^\infty \abs{G(f)}^2 \diff f$\\
+	%Bandbreite: $B_0^2 = \frac{1}{E} \int\limits_{-\infty}^\infty f^2 \abs{G(f)}^2 \diff f$\\
+	%$T_D^2 = \frac{1}{E} \int\limits_{-\infty}^\infty t^2 \abs{g(t)}^2 \diff t$\\
+	Nach Trägheitsradius definiert. (Integral $\int\limits_{-\infty}^\infty t^2 g_{\ir s}^2 \diff t$ konvergiert)
+	
+	\textbf{Schrankenfunktion für Spektrum:}\\
+	Falls das Zeitsignal in der $n$-ten Ableitung das \emph{erste} mal einen Sprung aufweist, gilt für das Betragsspektrum:\\
+	\emphbox{ $\displaystyle \abs{X(f)} \propto \frac{1}{\abs{f}^{n+1}}$ \qquad für große $\abs{f}$}\\
+	Anmerkung: $n$ kann auch negativ sein! Bsp: $\dirac(t) \Ra n = -1$
+}
+
+\sectionbox{
+	\subsection{Nyquist Bedingungen}
+	\subsubsection{1. Bedingung: Kein Symbolübersprechen}
+	Impulsantwort $g[nT] = \begin{cases} 1 & n = 0 \\ 0 & n \ne 0 \end{cases}$\\
+	Fordert maximale vertikale Öffnung des Auges\\
+	Impuls Nullstellen: $\pm 1T, \pm 2T, \pm 3T, \ldots$\\
+	
+	Zeitbereich: $A \{ g(t) \} = T \sum \limits_{n = - \infty}^{\infty} g(nT) \cdot \delta (t - nT) = T \cdot \delta (t)$
+	Frequenzbereich: $P \{ G(f) \} = \sum \limits_{k = - \infty}^{\infty} G(f - \frac{k}{T}) = T$
+	
+	\subsubsection{2. Bedingung: Verschärfung 1. Bedingung}
+	Impulsantwort $g \left[k \frac{T}{2}\right] = \begin{cases} 1 & k = 0 \\ g\left[\frac{T}{2}\right] & k = \pm 1 \\ 0 & \text{sonst} \end{cases}$\\
+	Fordert maximale horizontale Öffnung des Auges\\
+	Zusätzliche Impuls Nullstellen: $\pm 1.5T, \pm 2.5T, \pm 3.5T, \ldots$\\
+}
+
+
+\sectionbox{
+	\subsection{Augendiagramm}
+	\pbox{3cm}{\includegraphics[width = 2.5cm]{./img/auge3.jpg}}
+	\pbox{4cm}{Bestimmung des Augendiagramm (4 Durchläufe): Für die Bereiche $[-T_{\ir A},0]$ und $[0,T_{\ir A}]$ werden die relevanten Pulse
+		so überlagert(positiv oder negativ), dass das Auge minimal wird. Daraus ergibt sich die Überlagerungstabelle.}\\
+	
+	\parbox{2.5cm}{Beispiel mit \\ 1 Vor- und 2 Nachläufern:}
+	\tabcolsep0.5em
+	\begin{tabular}{lll|lll}
+		$D_{-2}$ & $D_{-1}$ & $D_{1}$ & $\boldsymbol D_{-1}$ & $\boldsymbol D_{1}$ & $\boldsymbol D_{2}$\\
+		$+1$ & $-1$ & $-1$ & $-1$ & $-1$ & $+1$\\ \mrule
+		$-1$ & $+1$ & $+1$ & $+1$ & $+1$ & $-1$\\
+	\end{tabular}
+	
+	\begin{description}
+		\item[Vertikale Öffnung $A_v$:] Maß für Empfindlichkeit gegenüber Rauschen
+		\item[Horizontale Öffnung $A_h$:] Maß für Empfindlichkeit gegenüber Schwankungen des Abtastzeitpunkts
+	\end{description}
+}
+
+
+
+
+
+\sectionbox{
+	\subsection{Korrelation}
+	Ein Maß für die Ähnlichkeit zweier Signale $x(t), y(t)$ bei Verschiebung.\\
+	Korrelationskoeffizient $\rho_{xy} = \frac{E_{xy}}{\sqrt{E_x \cdot E_y}} = \frac{\varphi_{xy}(0)}{ \sqrt{\varphi_x(0) \cdot \varphi_y(0)}}$\\
+	\\
+	Es gilt: Korreliert $\rho = 1$, Orthogonal $\rho = 0$, Antipodisch $\rho = -1$\\
+	\\
+	\textbf{Kreuzkorrelationsfkt.} zwischen zueinander verschobenen Signalen:\\
+	\emphbox{ $\displaystyle \varphi_{xy} (\tau) =  \varphi_{yx}(-\tau) = \int\limits_{-\infty}^{\infty} x(t) \cdot y(t+\tau) \diff t$ }
+	Zusammenhang mit Faltung: $\varphi_{xy} (\tau) = x(-t) * y(t)|_{t = \tau}$\\
+	\\
+	\textbf{Autokorrelationsfkt. AKF} ist Kreuzkorrelation mit sich selbst ($y = x$):\\
+	$\varphi_x (\tau) = \varphi_{xx}(\tau)$ \qquad Anwendung: Erkennen von Perioden\\ 
+	\\
+	\textbf{Energiebeziehung:} $E_{x,y} = \rho_{x,y} \sqrt{E_x E_y}$ mit \\
+	\textbf{Energie} $E_x = \int\limits_{- \infty}^{\infty} x(t)^2 \diff t = \int\limits_{- \infty}^{\infty} \Phi_x \diff f = \varphi_{xx}(0)$ \quad (endl. Sig.)\\
+	\textbf{Leistung} $P_x = \E[\X^2] = \frac{1}{2T} \int\limits_{-T}^{T} x(t)^2 \diff t$ \qquad\qquad (period. Sig.)\\
+	\textbf{Leistungsdichtespektrum} $\Phi_x(f)$ ist definiert als $\varphi_x \FT \Phi(f)$\\
+	
+	Periodische Signale: $\overline \varphi_{xy}(\tau) = \frac{1}{2T} \int_{-T}^{T} x(t) y(t+\tau) \diff t$\\
+	\textbf{Stochastische Signale:} $\varphi_{\X\Y}(\tau) = \E[\X(t) \cdot \Y(t+\tau)]$\\
+	$\rho_{\X,\Y} = \frac{\Cov[\X \Y]}{\sigma_{\X} \sigma_{\Y}}$\\
+	$\int \limits_{-\infty}^{\infty} \PSD_{\X}(f) \diff f = \ACF_{\X}(0) = \Var[\X] + \E[\X]^2 = \sigma^2_{\X} + \mu^2_{\X}$
+}
+
+
+
+
+
+
+
+% SECTION ====================================================================================
+\section{Analoger Übertragungskanal}
+% ============================================================================================
+
+
+$r(t) = h(t) * s(t)$ \qquad $R(f) = H(f) \cdot S(f)$\\ 
+Verzerrungsfrei: $h(t) = h_0 \dirac(t-t_0)$ \qquad $H(f) = h_0 e^{-\i 2 \pi f t_0}$
+
+
+\sectionbox{
+	\subsection{\textsc{AWGN} -- Additive White Gaussian Noise}
+	Weißes Rauschen $\textit{N}$ enthält alle Frequenzen. Thermisch: $N_0 = k_{\ir B} T$\\
+	\begin{tabular}{lll}
+		PDF & $f_\textit{N}(n) = \frac{1}{\sqrt{2\pi} \cdot \sigma} e^{-\frac{n^2}{2\sigma^2}}$\\[0.5em]
+		LDS: & $\Phi_\textit{N}(f) := \frac{N_0}{2}$ &für $f < \SI{10}{\giga \hertz}$\\[0.5em]
+		AKF: & $\varphi_n(\tau) = \frac{N_0}{2} \delta(\tau)$ & $\Ra 0$ für $\tau \ne 0$\\[0.5em]
+		Leistung & $P_\textit{N} = \int \Phi_\textit{N} \diff f = \sigma^2 = B \cdot N_0$\\
+	\end{tabular}
+	
+	Äquivalente Rauschbandbreite $B_N$: Bandbreite eines idealen Tiefpasses, der die selbe Rauschleistung $P_N$ erzeugt, 
+	wie das reale Tiefpassfiltersystem.
+}
+
+
+
+
+% SECTION ====================================================================================
+\section{Detektion im Rauschen}
+% ============================================================================================
+\sectionbox{
+	\includegraphics[width = \columnwidth]{./img/detection.pdf}
+	
+	gewähltes Bit $\hat D_n$ eines tatsächlichen Bits $D_n = \eset{1,0}$\\
+	Ziel: $\P(\hat D_n \ne D_n)$ soll minimal sein.\\
+	Lösung: maximiere SNR zum Abtastzeitpunkt $nT$\\
+	Rauschleistung nach Filterung mit $h(t)$:\\
+	$P_\textit{N} = \int\limits_{-\infty}^\infty \Phi_\textit{N} \abs{H(f)}^2 \diff f = \frac{N_0}{2} \int\limits_{-\infty}^\infty \abs{H(f)}^2 \diff f$ 
+	
+	$\ra $ mit Satz von Parseval gilt : $ P_{\ir N} =  \frac{N_0}{2} \int\limits_{-\infty}^{\infty} \abs{ h(t)}^2 \diff t$
+	
+	momentane Signalleistung: $P_s(t) = \abs{y_s(t)}^2$
+	
+	mittlere Signalleistung: $P_s = \lim\limits_{T \rightarrow \infty} \frac{1}{2T} \int\limits_{-T}^{T} \abs{y_{s}(t)}^2 \diff t$
+	
+}
+
+\sectionbox{
+	\subsection{Matched Filter}
+	Signalangepasster Filter damit Signal im AWGN Kanal zum Abtastzeitpunkt die maximale SNR hat.
+	Impulsantwort des Matched Filters:\\ $h_{\ir MF}(t) = K \cdot \cxc g_s(T-t)$ \qquad (entspricht gewendetem Sendeimpuls)\\
+	$H_{\ir MF}(f)=K\cdot \cxc G_s(f)\cdot \e^{-\j 2\pi f T}$\\
+	Maximum SNR: $\frac{P_s}{P_N} = \frac{2E_s}{N_0}$\\
+}
+
+\sectionbox{
+	\subsection{Fehlerwahrscheinlichkeit $\P_b$}
+	% Alle Pulse mit gleicher Energie haben die gleiche Fehlerwahrscheinlichkeit?
+	\includegraphics[width = 4cm]{./img/noisedetection.pdf}\\
+	$\P_b = \frac{1}{\sqrt{2 \pi}} \cdot \int_{z_0}^\infty e^{\frac{-z^2}{2}} \diff z = Q(z_0) = \frac{1}{2} \erfc\left(\sqrt{\frac{1}{2} \SNR}\right)$\\
+	Substituiere $z_0$\\
+	Für matched Filter: $\P_b = Q(\sqrt{P_s / P_n}) = Q(\sqrt{Y_s^2 / \sigma_N^2}) = Q(\sqrt{2 E_s / N_0}) = Q(\sqrt{\SNR})$
+}
+
+\sectionbox{	
+	\subsection{Zeitdiskreter AWGN-Kanal}
+	$\sigma^2 = \frac{\sigma_\textit{N}^2}{A^2} = \frac{N_0}{2 E_s} = \frac{1}{\SNR}$\\
+}
+
+\sectionbox{	
+	\subsection{Unabhängiges (unkorreliertes) Rauschen}
+	Falls die erste Nyquistbedingung erfüllt und maximale SNR: \\ $\Ra$ Die Folge abgetasteter Rauschanteile ist unabhängig!
+}
+
+
+
+% SECTION ====================================================================================
+\section{Lineare, digitale Modulation}
+% ============================================================================================
+\sectionbox{
+	\subsection{Allgemeines}
+	Dimensionen: Phase (sin/cos), Polarisation (hori/vert)
+	
+	Die meisten Medien übetragen um eine Trägerfrequenz $f_0$ (Bandpass)\\
+	
+	Bandpass-Sendesignal (moduliert mit $S(t)$): \\ 
+	$\tilde S(t) = A(t) \sqrt{2} \cos\left(2 \pi (f_0+F(t)) t + \varphi_0(t)\right)$\\
+	
+	Inphasenanteil (Cosinusträger) $S_I(t) = A(t) \cos(\varphi'(t))$
+	
+	Quadraturanteil (Sinusträger) $S_Q(t) = A(t) \sin(\varphi'(t))$
+	
+	Amplitude: $\abs{A(t)} = \sqrt{S_I^2(t) + S_Q^2 (t)}$
+	
+	Phase: $\varphi' (t) = \arctan \frac{S_Q (t)}{S_I (t)}$
+	
+	Mittl. Energie pro Symbol: $\ol E_S = \E[D_{I_n}^2 + D_{Q_n}^2] \cdot \underbrace{\int_0^T \abs{g_s (t)}^2 \diff t}_{E_{g_s}}$
+	Energie je Bit : $E_{\ir bit}=\frac{\ol E_S}{\text{\# Bits}}$\\
+	
+	Anfälligkeit gegenüber Rauschen: $d_{\ir min} $
+}
+
+\sectionbox{
+	\subsection{Modulation und Signalraumzuordnung}
+	
+	\includegraphics[width=\columnwidth]{img/QAM_Sender.jpg}
+	
+	Moduliertes Sendesignal
+	
+	$\tilde S (t) = S_I (t) \sqrt{2} \cos (2 \pi f_0 t) - S_Q (t) \sqrt{2} \sin (2 \pi f_0 t) $ \\
+	$= \left[ \sum \limits_{n = - \infty}^{\infty} D_{I_n} g_s (t - n T) \right] \sqrt{2} \cos (2 \pi f_0 t)$\\
+	$-  \left[ \sum \limits_{n = - \infty}^{\infty} D_{Q_n} g_s (t - n T) \right] \sqrt{2} \sin (2 \pi f_0 t)$ 
+}
+
+\sectionbox{
+	\subsection{Modulationsarten} 
+	linear: AM $A(t)$, ASK, PSK\\
+	nicht linear: FM $F(t)$, PM $\varphi(t)$, FSK\\
+	Probleme: Nichtlineare Verstärker verzerren Raumpunkte
+	\includegraphics{./img/SK.pdf}\\
+	\includegraphics[width = 6cm]{./img/digimod.jpg}
+}
+
+
+\sectionbox{
+	\subsection{On-Off Keying (OOK)}
+	Intensitätsmodulation mit $b = 1$ (Laser an oder aus)\\
+	Mittlere Energie pro Symbol: $E_s = \frac{A^2_{\ir on}}{2}$\\
+}
+
+\sectionbox{
+	\subsection{Amplitude Shift Keying ($M$-ASK)}
+	Für $M$ Stufen mit Abstand $\Delta$ gilt: $\E[D_I^2] = \frac{\Delta^2 (M^2-1)}{12}$
+}
+
+
+\sectionbox{
+	\subsection{Phase Shift Keying (PSK)}
+	\parbox{2.5cm}{
+		\includegraphics[width = 2.5cm]{./img/QPSK.pdf}
+	} \quad 
+	\parbox{4cm}{ $d_I^2 + d_Q^2 = r^2$ \qquad (meist $r = 1$) \\ $E_s = \E[D_I^2 + D_Q^2] \int_0^T \abs{g_s(t)}^2 \diff t$ \\
+		
+		Offset: verhindert harte Übergänge (Nicht durch Null)\\
+		Gray-Codierung zwischen benachbarten Symbolen: Fehler in der Symbolerkennung hat nur geringe Bitfehler\\	
+	}
+	\subsubsection{DPSK}
+	Differentielle binäre Phasenmodulation\\
+	0: Phase bleibt gleich, 1: Phase ändert sich\\
+	
+	
+}
+
+
+\sectionbox{
+	\subsection{Quadraturamplitudenmodulation ($M$-QAM)}
+	Für $M$ Stufen und Abstand $\Delta$: $\E[D_I^2 + D_Q^2] = \frac{\Delta^2 (M-1)}{6}$
+}
+
