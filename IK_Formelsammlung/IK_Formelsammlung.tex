@@ -174,10 +174,6 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	Zeit $t_{ges}$ ab Sendestart einer Datenmenge $D_b$ bis zum vollständigen Empfang, abhängig von verwendeten Protokollen \\
 	
 		
-%TODO: Einheitlich definieren (Name Symbol, [Symbol] = Einheit)
-%TODO: Tabellenformatierung ändern
-
-
 }
 
 % ============================================================================================
@@ -218,7 +214,7 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 		Für harmonische Zeitvorgänge und EM-Wellen ($\overrightarrow{E} \sphericalangle \overrightarrow{H} = \frac{\pi}{2} $) gilt: \\
 		$\underline{S} = S = \frac{1}{2}\underline{E} \cdot \underline{H}^{*}  = \frac{1}{2}\underline{H}^2 Z_F = \frac{1}{2}\frac{Z_F}{\underline{E}^2}$ mit $E, H \in \mathbb{C}$ \\ 
 		Wellenwiderstand im Vakuum $Z_F = \sqrt{\frac{\mu_0}{\epsilon_0}} \approx 376,73 \Omega$
-	%TODO: Komplex-konjugierte Zahl nicht mit \ast kennzeichnen ... passenden LaTeX suchen
+
 
 
 	
@@ -236,12 +232,22 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	Bsp. Empfangs- und Sendeantenne im Abstand r zueinander: \\ $P_E = P_S \cdot G_S \cdot G_E (\frac{\lambda}{4 \pi r})^2$ \\
 }
 
-\section{OSI-Modell}
+\section{OSI-Modell (Open-System-Interface)}
 % ============================================================================================
 
 \sectionbox{
+%	\includegraphics[width = 6cm]{./img/OSI_Modell.png}
+
+Ein- und Entkapselung der Daten in den 7 OSI-Schichten \\
+	\includegraphics[width = 6cm]{./img/OSI_Modell2.png}
+
+Beispiel-Trace und Header-Verkapselung:
+%TODO Trace entschlüsseln, Header hervorheben, 
+
+%TODO Cheatsheet
 
 }
+
 
 
 % SECTION ====================================================================================
@@ -282,7 +288,7 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 
 	\includegraphics[width = 6cm]{./img/ALOHA_Datendurchsatz.png}
 
-	%TODO: Graphik Datendurchsatz bei ALOHA einfügen Folie 12 Zugriffsverfahren,
+
 	\textbf{Pure ALOHA}
 		Zufällige Sendung von Paketen durchschnittlich alle $\frac{1}{\lambda}$ mit Paketen der zeitlichen Rahmenlänge $ \tau $ \\
 		
@@ -451,17 +457,6 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 %	Anfälligkeit gegenüber Rauschen: $d_{\ir min} $
 }
 
-\sectionbox{
-	\subsection{Modulation und Signalraumzuordnung}
-	
-	\includegraphics[width=\columnwidth]{img/QAM_Sender.jpg}
-	
-	Moduliertes Sendesignal
-	
-	$\tilde S (t) = S_I (t) \sqrt{2} \cos (2 \pi f_0 t) - S_Q (t) \sqrt{2} \sin (2 \pi f_0 t) $ \\
-	$= \left[ \sum \limits_{n = - \infty}^{\infty} D_{I_n} g_s (t - n T) \right] \sqrt{2} \cos (2 \pi f_0 t)$\\
-	$-  \left[ \sum \limits_{n = - \infty}^{\infty} D_{Q_n} g_s (t - n T) \right] \sqrt{2} \sin (2 \pi f_0 t)$ 
-}
 
 \sectionbox{
 	\subsection{Modulationsarten} 
@@ -522,15 +517,64 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 }
 
 
+
+
+
+% SECTION ====================================================================================
+\section{Weiteres, IP, etc.}
+% ============================================================================================
+
+\sectionbox{
+	\subsection{IP-Adressen}
+$	IP-Adresse = Netzwerkadresse + Hostadresse $\\
+	IP-Adresse UND Netzwerkmaske = Netzwerkadresse inkl. vorangestellte(s) Bit(s) für die Adressklasse\\
+	Genormte Länge von 32 bit für eine IP-Adresse \\
+	Schreibweise meist in 4 Oktett-Form mit 4 durch Punkte getrennte dezimale 8-Bit-Zahlen (0...255) \\
+	
+	\includegraphics[width = 3cm]{./img/IP_Adressklassen.png} 
+	\includegraphics[width = 3.8cm]{./img/IP_Adressraum.png}\\
+
+	Localhost = 127.0.0.1 \\
+	\textbf{Netzwerkadresse}, alle bits der Hostadresse sind 0 \\
+	\textbf{Broadcastadresse}, alle bits der Hostadresse sind 1  \\
+	
+
+	\textbf{Subnetting} \\
+	Unterteilung eines Klasse A-, B- oder C-Netzes in Subnetze \\
+	Die Subnetzmaske unterteilt die Bits für die Host-Adresse in eine Subnetzwerkadresse und die eigentliche Rechneradresse. \\
+	$IP-Adresse = Netzwerkadresse + Subnetzwerkadresse + eig. Rechneradresse$ \\
+	IP-Adresse UND Subnetzmaske = Netzwerkadresse + Subnetzadresse inkl. vorangestellte(s) Bit(s) für die Adressklass \\
+	
+
+}
+
+\sectionbox{
+	\subsection{}
+
+}
+
+
+\sectionbox{
+	\subsection{}
+
+}
+
+
+
+
+
 \columnbreak
+
+
 
 \raisebox{0.5cm}{Auch wichtig:} \qquad \includegraphics[height = 1cm]{./img/cat.jpg} \ \raisebox{0.5cm}{$\FT$}\ \includegraphics[height = 1.3cm]{./img/cat_f.jpg}\\
 \\
 \includegraphics[width = 5cm]{./img/xkcd2.jpg}
 
+
 \vspace{0.2cm}
 {\Huge \bf Eigene Notizen:}
-
+$\Phi \Xi \heartsuit$ %Phi Xi Heart
 
 
 
@@ -900,16 +944,62 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 }
 
 
+
+====================================================================================
 \section{E-Technik}
-%TODO: Ergänzung Quellen-ESB, OP-Amps, Transistorschaltungen
+% ============================================================================================
+
+%TODO: Ergänzung Qu<rellen-ESB, OP-Amps, Transistorschaltungen
 
 \sectionbox{
-		\subsection{title}
+		\subsection{OP-Amp-Schaltung mit Hysterese}
+$U_m$ als Spannung am Minus-Pin \\
+$U_p$ als Spannung am Plus-Pin \\
+$U_a$ als Ausgangsspannung \\
+$U_e$ als Eingangsspannung \\
+$U_b = V_{+}$ als pos. Versorgungsspannung des Op-Amps.  \\
+$ V_{-}$ als neg. Versorgungsspannung des OP-Amps
+$U_{os}$ = Spannung der oberen Schaltschwelle \\	
+$U_{us}$ = Spannung der unteren Schaltschwelle \\
 
+%TODO Bild mit OP-Schaltung
+
+Positive Rückkopplung beim OP-Amp bedeutet: \\
+Für $U_p > U_m$ gilt $U_a = V_+ = U_b$ \\
+Für $U_p > U_m$ gilt $U_a = V_-$ (meistens = GND) \\
+
+
+Annahme: Pos. Versorgungsspannung = $U_b$, neg. Versorgungsspannung = 0 V (GND) \\
+
+1. Fallunterscheidung Hysterese (I) mit $U_e$ am Plus-Pin und invertierte Hysterese (II) mit $U_e$ am Minus-Pin\\
+Fall I : \(\lim\limits_{U_e \to \infty} U_ = V_+ \) \\
+Fall II : \(\lim\limits_{U_e \to \infty} U_a = V_- \) \\
+\includegraphics[scale = 0.2]{./img/Hysterese.png}
+\includegraphics[scale = 0.4]{./img/Hysterese_invertiert.png}
+
+2. Bedingung an der unteren (US) und oberen (OS) Schaltschwelle ($U_m = U_p$) einstellen in Abhängigkeit der Art der Hysterese (I oder II): \\
+ ( I ) US: $ U_e = U_{us}; U_a = V_{+} $ \\
+ ( I ) OS: $ U_e = U_{os}; U_a = V_{-}+ $ \\
+ ( II ) US: $ U_e = U_{us}; U_a = V_{-} $ \\
+ ( II ) OS: $ U_e = U_{os}; U_a = V_{+} $ \\
+ 
+ Beispiele: \\
+ \includegraphics[scale = 0.4]{./img/Hystereseschaltung.png} \\
+ \includegraphics[scale = 0.4]{./img/Hystereseschaltung_invert.png} \\
+ 
+
+3. Beide Gleichung für die verschiedenen Schaltschwellen gleichsetzen und auflösen.
 }
 
+\sectionbox{
+	\subsection{Transistor-Verstärkerschaltung}
+	
+}
 
+%
+====================================================================================
 \section{Naturkonstanten}
+% ============================================================================================
 \sectionbox{
 Konstanten...
 }
@@ -917,6 +1007,8 @@ Konstanten...
 
 % Ende der Spalten
 \end{multicols*}
+
+hj
 
 % Dokumentende
 % ======================================================================
@@ -1044,7 +1136,7 @@ wertkontinuierliche Sequenz von (zeitdiskreten) Abtastwerten wird abgebildet auf
 	\subsection{Lineare Quantisierung}
 	Spezialfall der skalaren Quantisierung mit gleich großen Quantisierungsintervallen $\Delta$.
 	
-	% TODO: Quantisierungskennlinie einfügen (Beispiel: http://home.arcor.de/rachid.nouna/Telekommunikation/Grundlagen-Dateien/image005.jpg links)
+	% TODO ursprünglich: Quantisierungskennlinie einfügen (Beispiel: http://home.arcor.de/rachid.nouna/Telekommunikation/Grundlagen-Dateien/image005.jpg links)
 	
 	\pbox{4cm}{\includegraphics{./img/pdf_quantization.pdf}} \ \pbox{4cm}{\includegraphics{./img/pdf_quantization_error.pdf}} \
 	\pbox{4cm}{\includegraphics{./img/quantization_error.pdf}}\\
@@ -1209,7 +1301,7 @@ wertkontinuierliche Sequenz von (zeitdiskreten) Abtastwerten wird abgebildet auf
 
 \columnbreak
 
-% TODO: Skript Seite 56 + FT von Aufgabe 18a) von SUM D_n d(t-nT) --> SUM D_n e^(-j2Pi n f T)
+% TODO ursprünglich: Skript Seite 56 + FT von Aufgabe 18a) von SUM D_n d(t-nT) --> SUM D_n e^(-j2Pi n f T)
 
 \sectionbox{
 	\subsection{Energie wichtiger Impulse mit Amplitude $A$}
