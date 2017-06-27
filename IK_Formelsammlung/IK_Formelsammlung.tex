@@ -19,6 +19,8 @@
 
 \usepackage{tikz}				% Alle möglichen Zeichnungen
 
+\usepackage{marvosym}			% Symbole, z.B. A im Kreis
+
 \sisetup{per-mode = fraction}
 \titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.\ }{0pt}{}
 
@@ -36,6 +38,8 @@
 \fstitle{Industrielle Kommunikation}
 
 % Shanon: A Mathematical Theory of Communication 1948
+Anmerkung: Layout und weiteres für eine freiere Wissensgesellschaft erklaut. \CircledA 
+
 \section*{Allgemeines}
 \sectionbox{
 \begin{center}
@@ -126,17 +130,17 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	\subsection{Umrechnung dB}
 \begin{tabular}[h]{l|c|c}
 	Verhältnis$\frac{P_2}{P_1}$ & Verstärkung[dB] & Dämpfung[dB] \\
-	$\frac{1}{1000} = 10^{-3}$ & -30 & +30 \\
-	$\frac{1}{20}$ & -13 & +13 \\
-	$\frac{1}{10} = 10^{-1} $ & -10 & +10 \\
-	$\frac{1}{4}$ & -6 & +6 \\
-	$\frac{1}{2}$ & -3 & +3 \\
+	$ 1000^{-1}$ & -30 & +30 \\
+	$ 20^{-1} $ & -13 & +13 \\
+	$ 10^{-1} $ & -10 & +10 \\ 
+	$ 4^{-1} $ & -6 & +6 \\
+	$ 2^{-1} $ & -3 & +3 \\
 	1 & 0 & 0 \\
 	2 & +3 & -3 \\
 	4 & +6 & -6 \\
-	8 & +9 & -9 \\
 	10 & +10 & -10\\
-	$1000 = 10^3$ & +30 & -30  
+	20 & +13 & -13 \\
+	1000 & +30 & -30  
 	%	    \caption{dB-Umrechnung}
 \end{tabular}
 
@@ -241,8 +245,12 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 Ein- und Entkapselung der Daten in den 7 OSI-Schichten \\
 	\includegraphics[width = 6cm]{./img/OSI_Modell2.png}
 
-Beispiel-Trace und Header-Verkapselung:
+Beispiel-Protokolle der verschiedenen Schichten in Anhang2. \\
+
+Beispiel-Trace und Header-Verkapselung:\\
+
 %TODO Trace entschlüsseln, Header hervorheben, 
+\includegraphics[width = 6cm]{./img/tcp_trace.png}
 
 %TODO Cheatsheet
 
@@ -411,10 +419,25 @@ Beispiel-Trace und Header-Verkapselung:
 	N Nachrichtenbits mit $ N = 2^k - 1 = n + k $\\
 	n Datenbits \\
 	k Paritybits \\
+	
+	Beispielübertragung mit Hamming(7,4):\\
+	\includegraphics[width = 6cm]{./img/HammingCode_bsp.png}
+	
+	Allgemein:\\
+	%TODO: HAMMING ALLG
 }
 
 \sectionbox{
 	\subsection{Huffmann-Code}
+	Sortieren nach Wahrscheinlichkeit und Codewortlänge (kurzes Codewort \arrowOver hohe Wahrscheinlichkeit)\\
+	Anleitung für manuelle visuelle Erstellung mittels eines "Huffman-Baums":\\
+	1. Zeichen (und/oder Knoten) mit der niedrigsten Wahrscheinlichkeit durch Leitungen verbinden\\
+	2. Beide Wahrscheinlichkeiten für die des Knotens addieren \\
+	3. weiter mit 2. bis alle verbunden sind (Gesamtwahrscheinlichkeit 1) \\
+	4. Für die neuen Codewörter nach Huffmann: rückwärts bei jeder Verzweigung eine 1 für den wahrscheinlicheren Zweig und eine 0 für den unwahrscheinlicheren \\
+	5. Das erste Bit des Codeworts des Zeichens $x_i$ nach Huffmann ist die gesetzte 0 oder 1 bei der ersten Verzweigung hin zum Zeichen $x_i$. Das nächste Bit entsprechend der nächsten Verzweigung, usw.\\
+	
+	\includegraphics[width = 6cm]{./img/HuffmannCode_bsp.png}	
 }
 
 
@@ -431,7 +454,7 @@ Beispiel-Trace und Header-Verkapselung:
 \sectionbox{
 	\subsection{Allgemeines}
 	Informationsfluss:\\
-	Info-Quelle -> Codierung -> Modulation -> Kanal -> Demodulation -> Decodierung -> Info-Senke \\
+	Info-Quelle \MVRightArrow Codierung \MVRightArrow Modulation \MVRightArrow Kanal \MVRightArrow Demodulation \MVRightArrow Decodierung \MVRightArrow Info-Senke \\
 	
 
 
@@ -525,7 +548,7 @@ Beispiel-Trace und Header-Verkapselung:
 % ============================================================================================
 
 \sectionbox{
-	\subsection{IP-Adressen}
+	\subsection{IPv4-Adressen}
 $	IP-Adresse = Netzwerkadresse + Hostadresse $\\
 	IP-Adresse UND Netzwerkmaske = Netzwerkadresse inkl. vorangestellte(s) Bit(s) für die Adressklasse\\
 	Genormte Länge von 32 bit für eine IP-Adresse \\
@@ -545,7 +568,11 @@ $	IP-Adresse = Netzwerkadresse + Hostadresse $\\
 	$IP-Adresse = Netzwerkadresse + Subnetzwerkadresse + eig. Rechneradresse$ \\
 	IP-Adresse UND Subnetzmaske = Netzwerkadresse + Subnetzadresse inkl. vorangestellte(s) Bit(s) für die Adressklass \\
 	
-
+	
+	Wichtig: Router die zwei Netzsegmente koppeln benötigen 2 IP-Adressen.\\
+	
+	VLSM?
+	%TODO: VLSM
 }
 
 \sectionbox{
@@ -566,15 +593,31 @@ $	IP-Adresse = Netzwerkadresse + Hostadresse $\\
 \columnbreak
 
 
-
+\section{Offtopic und Notizen}
 \raisebox{0.5cm}{Auch wichtig:} \qquad \includegraphics[height = 1cm]{./img/cat.jpg} \ \raisebox{0.5cm}{$\FT$}\ \includegraphics[height = 1.3cm]{./img/cat_f.jpg}\\
 \\
 \includegraphics[width = 5cm]{./img/xkcd2.jpg}
 
 
 \vspace{0.2cm}
-{\Huge \bf Eigene Notizen:}
-$\Phi \Xi \heartsuit$ %Phi Xi Heart
+{\Huge \bf Eigene Notizen:}\\
+
+Aufruf: Bildet euch! Bildet andere! Bildet banden! \\
+Außerdem: $\Phi \Xi \heartsuit$4\CircledA \\ %Phi Xi Heart for Anarchy
+Für Liebe und Anarchie. Gegen Ausbeuter*innen und Kriegstreiber*innen, durch (anti-)systemisches Vorgehen wie z.B. Angriffen auf menschenverachtende, umweltzerstörende, Tiere quälende/mordende Infrastruktur à la Grenzzäune, Abschiebeknäste, Kohlegruben, Schlachtfabriken und ähnliches oder z.B. durch Aufbrechen von Denkmustern einer archaischen Asozialisation die solch Gräuel erzeugen oder z.B. solidarische Gegenkonzepte für ein gutes Leben für alle, welche die bestehenden Verhältnisse ins Wanken bringen. Natürlich ohne invidiuellen Terror à la RAF. Langer beschreibender Text, um die Political Correctness zu wahren.\\
+
+\textbf{4 the Lulz: Heisenberg, Schroeder and Ohm are in a car}\\
+They get pulled over. Heisenberg is driving and the cop asks him "Do you know how fast you were going?"
+
+"No, but I know exactly where I am" Heisenberg replies.
+
+The cop says "You were doing 55 in a 35." Heisenberg throws up his hands and shouts "Great! Now I'm lost!"
+
+The cop thinks this is suspicious and orders him to pop open the trunk. He checks it out and says "Do you know you have a dead cat back here?"
+
+"We do now, asshole!" shouts Schrodinger.
+
+The cop moves to arrest them. Ohm resists.
 
 
 
@@ -605,8 +648,11 @@ $\Phi \Xi \heartsuit$ %Phi Xi Heart
 \sectionbox{
 \subsection{Exponentialfunktion und Logarithmus}
 \begin{tabular*}{\columnwidth}{l@{\extracolsep\fill}ll}
-	$a^x = e^{x \ln a}$ & $\log_a x = \frac{\ln x}{\ln a}$ & $\ln x \le x -1$\\
-	$\ln(x^{a}) = a \ln(x)$ & $\ln(\frac{x}{a}) = \ln x - \ln a$ & $\log(1) = 0$\\
+	$b^a = x$ & $\log_b(1) = 0$ & $\log_b x = \frac{\log_a x}{\log_a b}$\\
+	
+	$log_b x = a$& $\log(10) = 1 $ & $\ln(\frac{x}{a}) = \ln x - \ln a$  \\
+	
+	$\ln(x^{c}) = c \ln(x)$ & $\ln e = 1$ & $\ln(x \cdot a) = \ln x + \ln a$\\
 \end{tabular*}
 }
 
@@ -725,7 +771,7 @@ Kreissehne: $s = 2r \sin(\alpha/2)$
 % SECTION ====================================================================================
 \section{Stochastik}
 % ============================================================================================
-\sectionbox{
+\sectionbox{KÜRZEN %TODO VEREINFACHEN/KÜRZEN
 \subsection{Der Wahrscheinlichkeitsraum $(\Omega,\mathbb F,\P)$}
 Ein Wahrscheinlichkeitsraum $(\Omega,\mathbb F,\P)$ besteht aus\\
 \begin{tabular*}{\columnwidth}{@{\extracolsep\fill}lll@{}} \ctrule
@@ -768,7 +814,7 @@ Standard Abweichung $\sigma = \sqrt{\Var[\X]}$\\
 % ============================================================================================
 
 
-\sectionbox{
+\sectionbox{ Löschen? %TODO: WEG?
 	\subsection{Faltung von Signalen}
 	\emphbox{ $\displaystyle x(t) * h(t) = h(t) * x(t) = \int\limits_{-\infty}^{\infty} x(\tau) \cdot h(t-\tau) \diff \tau$ }
 
@@ -855,7 +901,7 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 
 }
 
-\sectionbox{
+\sectionbox{ Löschen? %TODO: WEG?
 	\subsection{sinc-Singal}
 	\pbox{4.8cm}{
 	\includegraphics[scale = 1.3]{./img/sinc.pdf}
@@ -868,7 +914,7 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 
 
 % SECTION ====================================================================================
-\section{Fouriertransformation}
+\section{Fouriertransformation  Löschen?} %TODO: WEG?
 % ============================================================================================
 
 \emphbox{ $\displaystyle \underset{\text{Zeitbereich}}{\large x(t)} \FT \underset{\text{Frequenzspektrum}}{\large X(f)} := \int\limits_{-\infty}^\infty x(t) \exp(-\j 2 \pi f t) \diff t$ }
@@ -996,7 +1042,12 @@ Fall II : \(\lim\limits_{U_e \to \infty} U_a = V_- \) \\
 	
 }
 
-%
+\sectionbox{
+	\subsection{Ersatzspannungsquellen}
+	
+}
+
+% SECTION
 ====================================================================================
 \section{Naturkonstanten}
 % ============================================================================================
@@ -1008,7 +1059,37 @@ Konstanten...
 % Ende der Spalten
 \end{multicols*}
 
-hj
+% SECTION ====================================================================================
+\section{Anhang2}
+% ============================================================================================
+ \includegraphics[scale = 1.1]{./img/OSI_Modell3.png} \\
+ 
+ \newpage
+ \textbf{Als Anhang für die Abgabe der Klausur}
+
+
+
+
+	\textbf{Definitionen}	
+	
+	
+	\begin{tabular*}{\columnwidth}{p{1.8cm} | p{1.6cm} | p{2.5cm}}
+		Bezeichnung & Symbol & Einheit \\ \hline
+		Datenmenge in bit & $D_b = 8 D_B $ & $[D_b] = 1 bit$   \\ \hline
+		Datenmenge in Byte & $D_B$ & $[D_B] = 1 Byte = 8 bit  $  \\ \hline
+		Signalstufen & V & [V] = 1   \\ \hline
+		Baudrate / Schrittgeschwindigkeit & $R_{baud}$ & $[R_{baud}] = 1 Hz $   \\ \hline
+		Bitrate/Brutto-Übertragungsrate & $R_b = $$ R_{baud} \cdot ld(V) bit $ & $[R_b] = 1 bps = 1 \frac{bit}{s} $  \\ \hline
+		Durchsatz/Netto-Übertragungsrate, effektiv & $R_{eff} = \frac{D_b}{t_{ges}}$ & $[R_{eff}] = 1 bps $ \\
+		
+		
+	\end{tabular*}\\
+	
+	Signalstufen V; Anzahl der möglichen annehmbaren Werte eines diskr. Signals pro Schritt \\
+	Zeit $t_{ges}$ ab Sendestart einer Datenmenge $D_b$ bis zum vollständigen Empfang, abhängig von verwendeten Protokollen \\
+	
+	
+
 
 % Dokumentende
 % ======================================================================
