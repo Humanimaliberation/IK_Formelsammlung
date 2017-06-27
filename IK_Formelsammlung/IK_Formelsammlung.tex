@@ -259,7 +259,7 @@ Beispiel-Trace und Header-Verkapselung:\\
 
 
 % SECTION ====================================================================================
-\section{Zugriffsverfahren, Sicherungsschicht}
+\section{Def. für Zugriffsverfahren, Sicherungsschicht}
 % ============================================================================================
 
 
@@ -288,9 +288,14 @@ Beispiel-Trace und Header-Verkapselung:\\
 	Anzahl erfolgreich übertragener Pakete pro Rahmenzeit $ S $, ideal $ S = G $ \\
 }
 
-\sectionbox{
-\subsection{Zugriffsverfahren}
 
+% SECTION ====================================================================================
+\section{Zugriffsverfahren}
+% ============================================================================================
+
+
+\sectionbox{
+\subsection{ALOHA, pure and slotted}
 	Ziel: Medienzugangskontrolle durch Paket-Kollisionsvermeidung und -endteckung \\
 
 
@@ -307,15 +312,18 @@ Beispiel-Trace und Header-Verkapselung:\\
 		Zufälliges Senden von Paketen durschnittlich alle $\frac{1}{\lambda}$ zu Beginn eines Zeitslots mit Paketen der zeitlichen Rahmenlänge $ \tau $ \\
 		
 		Potentielle Kollisionszeit $ = \tau $ \\
-		$ S = G \cdot E^{-G} $ mit $ S_{max}(G = G_{max} = 1) = 0,368 $ \\
+		$ S = G \cdot e^{-G} $ mit $ S_{max}(G = G_{max} = 1) = 0,368 $ \\
 		
-	\textbf{1-persistent CSMA} (Carrier Sense Multiple Access) \\
+	\subsection{CSMA: Carrier Sense Multiple Access}
+	
+	
+	\textbf{1-persistent CSMA}  \\
 		regelmäßige Überprüfung auf freien Kanal, wenn frei, dann Paketsendung mit Wahrscheinlichkeit 1 \\
 		
-	\textbf{Non-persistent CSMA} (Carrier Sense Multiple Access ) \\
+	\textbf{Non-persistent CSMA} \\
 		unregelmäßige Überprüfung auf freien Kanal, wenn frei, dann Paketsendung mit Wahrscheinlichkeit 1 \\
 	
-	\textbf{p-persistent CSMA} (Carrier Sense Multiple Access )  \\
+	\textbf{p-persistent CSMA}  \\
 		regelmäßige Überprüfung auf freien Kanal, wenn frei, dann Paketsendung mit Wahrscheinlichkeit p \\
 		
 	\textbf{CSMA/CD} (Carrier Sense Multiple Access / Collision Detection) \\
@@ -325,43 +333,54 @@ Beispiel-Trace und Header-Verkapselung:\\
 
 }
 
+% SECTION ====================================================================================
+\section{Sicherungsschicht}
+% ============================================================================================
 
 \sectionbox{
-\subsection{Sicherungsschicht}
+	\subsection{Stop and Wait} 
+		Senden eines Pakets, Warten auf Bestätigung (ACK), Senden des nächsten Pakets, usw. \\
+		$R_eff = \frac{D_p}{\frac{D_p}{R_b} + 2 t_t}$ wenn $t_t$ für Hin- und Rückweg gleich. \\
+
+	\subsection{Pipelining} 
+		Fenstergröße $D_W$ in bits bestehend aus $n$ Paketen\\
+
+		Bestätigung von Paket 1 muss ankommen, bevor die Fenstergröße in bits versendet wurde, damit keine Wartezeiten anfallen. \\
 
 
-\textbf{Stop and Wait} \\
-	Senden eines Pakets, Warten auf Bestätigung (ACK), Senden des nächsten Pakets, usw. \\
-	$R_eff = \frac{D_p}{\frac{D_p}{R_b} + 2 t_t}$ wenn $t_t$ für Hin- und Rückweg gleich. \\
-
-\textbf{Pipelining} \\
-	Fenstergröße $D_W$ in bits bestehend aus $n$ Paketen\\
-
-	Bestätigung von Paket 1 muss ankommen, bevor die Fenstergröße in bits versendet wurde, damit keine Wartezeiten anfallen. \\
-
-
-	Fall 1 (ideal): Für $\frac{D_W}{R_b}  \le \frac{D_P}{R_b} + 2t_t$ \\ gilt: $R_{eff} = R_b$ \\
-	Fall 2 (Wartezeiten): Für $\frac{D_W}{R_b} < \frac{D_P}{R_b} + 2t_t$  \\ gilt $R_{eff} = \frac{D_W}{\frac{D_b}{R_b} + 2 \cdot t_t }$ \\ 
+		Fall 1 (ideal): Für $\frac{D_W}{R_b}  \le \frac{D_P}{R_b} + 2t_t$ \\ gilt: $R_{eff} = R_b$ \\
+		Fall 2 (Wartezeiten): Für $\frac{D_W}{R_b} < \frac{D_P}{R_b} + 2t_t$  \\ gilt $R_{eff} = \frac{D_W}{\frac{D_b}{R_b} + 2 \cdot t_t }$ \\ 
 	
 
-\textbf{Go-back ohne Puffer} \\
-	Sender überträgt, wenn nach Senden eines Pakets und Verstreichen eines Timeout-Intervall kein ACK für das Paket einging, sämtliche Daten ab dem unbestätigten Rahmen neu. \\
+	\subsection{Go-back ohne Puffer} 
+		Sender überträgt, wenn nach Senden eines Pakets und Verstreichen eines Timeout-Intervall kein ACK für das Paket einging, sämtliche Daten ab dem unbestätigten Rahmen neu. \\
 
-\textbf{Go-back-n mit Puffer} \\
-	Genauso wie ohne Puffer, nur das nach Erhalt des ACK für das erneut gesandte Paket beim ersten noch nicht gesendeten Paket weiter gesendet wird. \\
+	\subsection{Go-back-n mit Puffer} 
+		Genauso wie ohne Puffer, nur das nach Erhalt des ACK für das erneut gesandte Paket beim ersten noch nicht gesendeten Paket weiter gesendet wird. \\
 	
-\textbf{Selective repeat}
-	Bei Nichtüertragung eines Pakets wird nach Timeout-Intervall nur das nicht korrekt übertragene Paket neu gesandt, alle weiteren werden gepuffert. \\
+	\subsection{Selective repeat}
+		Bei Nichtüertragung eines Pakets wird nach Timeout-Intervall nur das nicht korrekt übertragene Paket neu gesandt, alle weiteren werden gepuffert. \\
 	
-\textbf{HDLC (High Level Data Link Control)} \\
+	\subsection{HDLC (High Level Data Link Control)} 
 
-	\includegraphics[width = 6cm]{./img/HDLC_Rahmen.png}
-	 Flag: 01111110; Bit stuffing (Bitstopfen) um Flag eindeutig zu halten\\
-
-\textbf{CRC} \textbf{C}yclic \textbf{R}edundancy \textbf{C}heck\\
-
-\includegraphics[width = 6cm]{./img/CRC_Bsp.png}
+		\includegraphics[width = 6cm]{./img/HDLC_Rahmen.png}
+		Flag: 01111110; Bit stuffing (Bitstopfen) um Flag eindeutig zu halten\\
 }
+
+\sectionbox{
+	\subsection{CRC} 
+	\textbf{C}yclic \textbf{R}edundancy \textbf{C}heck\\
+	Sender und Empfänger verwenden das gleiche Prüfpolynom! \\
+
+	\includegraphics[width = 6cm]{./img/CRC_Bsp.png}\\
+	\textbf{Empfänger:} 
+	Überprüfen der Empfangsdaten (Nutzdaten + CRC-Wert) auf Übertragungsfehler \\
+	Empfangsdaten mit XOR statt Subtraktion durch's Prüfpolynom dividieren: 
+	2 Fälle für's Ergebnis möglich \\
+	I. Mit Rest: Übertragungsfehler \\
+	II. Ohne Rest: wahrscheinlich kein Übertragungsfehler \\
+
+} 
 
 
 
@@ -415,7 +434,7 @@ Beispiel-Trace und Header-Verkapselung:\\
 }
 
 \sectionbox{
-	\subsection{Hamming-Code(N,n)}
+	\subsection{Hamming Code(N,n)}
 	N Nachrichtenbits mit $ N = 2^k - 1 = n + k $\\
 	n Datenbits \\
 	k Paritybits \\
@@ -428,7 +447,7 @@ Beispiel-Trace und Header-Verkapselung:\\
 }
 
 \sectionbox{
-	\subsection{Huffmann-Code}
+	\subsection{Huffmann Code}
 	Sortieren nach Wahrscheinlichkeit und Codewortlänge (kurzes Codewort \arrowOver hohe Wahrscheinlichkeit)\\
 	Anleitung für manuelle visuelle Erstellung mittels eines "Huffman-Baums":\\
 	1. Zeichen (und/oder Knoten) mit der niedrigsten Wahrscheinlichkeit durch Leitungen verbinden\\
@@ -440,6 +459,11 @@ Beispiel-Trace und Header-Verkapselung:\\
 	\includegraphics[width = 6cm]{./img/HuffmannCode_bsp.png}	
 }
 
+
+\sectionbox{
+	\subsection{Reed-Solomon Code}
+
+}
 
 
 
@@ -576,8 +600,8 @@ $	IP-Adresse = Netzwerkadresse + Hostadresse $\\
 }
 
 \sectionbox{
-	\subsection{}
-
+	\subsection{Router, Hubs, Switches}
+%TODO Router, Hubs, Swithces
 }
 
 
