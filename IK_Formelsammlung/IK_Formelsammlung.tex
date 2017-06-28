@@ -180,9 +180,10 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 		
 }
 
-% ============================================================================================
+
 % SECTION ====================================================================================
 \section{Leitungstheorie}
+% ============================================================================================
 
 \sectionbox{ Leitungstheorie \textbf{relevant für $l >= 0,1 \lambda$}
 	\subsection{Definitionen}
@@ -200,6 +201,8 @@ Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion un
 	
 	\subsection{Formeln}
 	%TODO: Abschreiben von Hübners Formelsammlung
+	
+	%TODO: Eventuell Grafik mit Methode aus HS für den zeitlichen Verlauf von reflektierenden Wanderwellen zwischen 2 Störstellen
 	
 	%Spezialfälle bei Eingangsimpedanzen bei Leitungen mit Abschlussimpedanz für Länge = lambda/4 oder labmda/2
 }
@@ -247,12 +250,24 @@ Ein- und Entkapselung der Daten in den 7 OSI-Schichten \\
 
 Beispiel-Protokolle der verschiedenen Schichten in Anhang2. \\
 
-Beispiel-Trace und Header-Verkapselung:\\
+\textbf{Beispiel-Trace und Header-Verkapselung:}\\
 
-%TODO Trace entschlüsseln, Header hervorheben, 
 \includegraphics[width = 6cm]{./img/tcp_trace.png}
 
-%TODO Cheatsheet
+\subsection{Nutzung des Cheatsheet}
+Allg.: Jede Spalte bei den Headerabbildungen entspricht 1 Bit. \\
+Pro Zeile also 32 Bit bzw. 4 Byte = 4 zweistellige Hexzahlen \\
+
+1. \textbf{Bei} Nutzung einer \textbf{Netzwerkkarte} wird \textbf{immer Ethernet} verwendet. Mit diesem Header für die Sicherungsschicht beginnt die Datenübertragung (s. beide Grafiken oben)\\ %TODO: Grafik-Referenz
+2. Die \textbf{letzten zwei Bytes Ethernet Header} geben den \textbf{Ethertype bzw. das Protokoll} des nächsten Header \textbf{für die Vermittlungsschicht}. \\
+Bsp. 0x0800 = IPv4 Protocoll.\\
+3. Das \textbf{zehnte Byte des IPv4 Header} gibt das \textbf{Protokoll für die Transportschicht} an. \\
+Bsp. 0x06 = TCP Protokoll\\
+4. Anhand des \textbf{dritten und vierten Byte im TCP Header} ist die \textbf{Destination Portnummer} erkennbar. Durch diese ist im Cheatsheet die \textbf{zugehörige Anwendung} erkennbar. \\
+Bsp.: 0x0050 = 0d80 = http \\
+
+
+
 
 }
 
@@ -443,7 +458,7 @@ Beispiel-Trace und Header-Verkapselung:\\
 	\includegraphics[width = 6cm]{./img/HammingCode_bsp.png}
 	
 	Allgemein:\\
-	%TODO: HAMMING ALLG
+	%TODO: HAMMING ALLG?
 }
 
 \sectionbox{
@@ -578,8 +593,8 @@ $	IP-Adresse = Netzwerkadresse + Hostadresse $\\
 	Genormte Länge von 32 bit für eine IP-Adresse \\
 	Schreibweise meist in 4 Oktett-Form mit 4 durch Punkte getrennte dezimale 8-Bit-Zahlen (0...255) \\
 	
-	\includegraphics[width = 3cm]{./img/IP_Adressklassen.png} 
-	\includegraphics[width = 3.8cm]{./img/IP_Adressraum.png}\\
+	\includegraphics[width = 6.8cm]{./img/IP_Adressklassen.png} \\
+	\includegraphics[width = 6.8cm]{./img/IP_Adressraum.png}\\
 
 	Localhost = 127.0.0.1 \\
 	\textbf{Netzwerkadresse}, alle bits der Hostadresse sind 0 \\
@@ -935,10 +950,17 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 
 }
 
+% SECTION ====================================================================================
+\section{Fouriertrreihe und -koeffizienten} %TODO: Beispiel-Fourierreihe
+% ============================================================================================
+
+\sectionbox{
+	...	
+}
 
 
 % SECTION ====================================================================================
-\section{Fouriertransformation  Löschen?} %TODO: WEG?
+\section{Fouriertransformation} %TODO: Kürzen?
 % ============================================================================================
 
 \emphbox{ $\displaystyle \underset{\text{Zeitbereich}}{\large x(t)} \FT \underset{\text{Frequenzspektrum}}{\large X(f)} := \int\limits_{-\infty}^\infty x(t) \exp(-\j 2 \pi f t) \diff t$ }
@@ -1032,8 +1054,6 @@ $ V_{-}$ als neg. Versorgungsspannung des OP-Amps
 $U_{os}$ = Spannung der oberen Schaltschwelle \\	
 $U_{us}$ = Spannung der unteren Schaltschwelle \\
 
-%TODO Bild mit OP-Schaltung
-
 Positive Rückkopplung beim OP-Amp bedeutet: \\
 Für $U_p > U_m$ gilt $U_a = V_+ = U_b$ \\
 Für $U_p > U_m$ gilt $U_a = V_-$ (meistens = GND) \\
@@ -1058,16 +1078,82 @@ Fall II : \(\lim\limits_{U_e \to \infty} U_a = V_- \) \\
  \includegraphics[scale = 0.4]{./img/Hystereseschaltung_invert.png} \\
  
 
-3. Beide Gleichung für die verschiedenen Schaltschwellen gleichsetzen und auflösen.
+3. Beide Gleichung für die verschiedenen Schaltschwellen gleichsetzen und auflösen.\\
 }
 
+
+
+
 \sectionbox{
-	\subsection{Transistor-Verstärkerschaltung}
+	\subsection{NPN-Transistor}
+	
+ 	\textbf{NPN-Transistor}\\
+	\includegraphics[width = 3cm]{./img/Transistor_npn.png} \\
+
+	Basis \textbf{B}, Kollektor \textbf{C}, Emitter \textbf{E} \\
+
+	Im \textbf{Sperrbereich} i.d.R. für $U_{BE}<0,7V$\\
+	
+	Im \textbf{Verstärkungsbereich} (Normalbetrieb) gilt:\\
+	$I_C = \beta \cdot I_B $ mit dem Verstärkungsfaktor $\beta$.\\
+
+	Im \textbf{Sättigungsbereich} (Sättigungsbetrieb) (	$I_C < \beta \cdot I_B $) \\
+	$I_C$ und $I_B$ verhalten sich nicht mehr proportional zueinander. Es gilt:\\
+	$ I_B = $Ü$ \cdot \frac{I_C}{\beta} $ mit dem Übersteuerungs-/Reservefaktor Ü \\
+
+	
+}
+
+
+\sectionbox{
+	\subsection{Transistorverstärker-Schaltung}
+	\includegraphics[width = 6cm]{./img/Transistorschaltung.png} \\
+	Die zum Beispiel dazugehörigen Aus- und Eingangskennlinien sind in den folgenden Subsections.\\
+	
+	Kennpunkte für Arbeitsgerade aus Beispielschaltung:\\
+	Kurzschlussstrom für Innenwiderstand des Transistors gleich 0 mit  $I_K = \frac{U_b}{R_L} = 80 mA$ \\
+	Leerlaufspannung $U_{CE}$ im Sperrbereich gleich $U_b = 16 V$ \\
 	
 }
 
 \sectionbox{
-	\subsection{Ersatzspannungsquellen}
+	\subsection{Transistor Ausgangskennlinie und Arbeitsgerade}
+	\includegraphics[width = 6cm]{./img/Transistor_Ausgangskennlinie.png} \\
+	Die rote Arbeitsgerade hängt in der Beispielschaltung von $U_b$, $R_L$ ab.\\
+	
+	Markierter Arbeitspunkt auf Arbeitsgerade gewählt für minimales $I_{B,sat} = 150 \mu A$ damit $U_{CE}=U_{CE,sat}$, $U_{CE}$ also möglichst minimal bleibt.\\
+	
+	Bei einem höheren $I_B$ wäre der Arbeitspunkt im Sättigungsbereich und $U_{CE}$ höher. \\
+}
+
+\sectionbox{
+	\subsection{Transistor Eingangskennlinie und Temperaturpunkt}
+	\includegraphics[width = 6cm]{./img/Transistor_Eingangskennlinie.png} \\
+	Temperaturbestimmung durch Schnittpunkt einer Temperaturgeraden mit $I_{Bsat}$ und $U_{BE} \approx 0,7 V$
+}
+
+
+
+
+
+\sectionbox{
+	\subsection{Lineare Ersatzspannungsquelle bestimmen}
+	Bestimmung des Innenwiderstands $R_i$ und der Quellspannung $U_q$ einer linearen Ersatzspannungsquelle:\\
+		
+	1. $R_i$ = Widerstand von Klemme zu Klemme mit U-Quellen kurzgeschlossen und I-Quellen offen \\
+	2. $U_q$ = Klemmspannung im Leerlauf \\
+	
+	\textbf{Beispiel-Ersatzspannungsquelle D}, identisch mit den Quellen A, B und C \\
+	%TODO Grafik-Untertitel
+	\includegraphics[width = 6.8cm]{./img/Ersatzspannungsquellen.png} \\
+	
+	Beispielrechnung:\\
+	1.A: $R_i = 100 \Omega + (0 \Omega||100 \Omega) = 100 \Omega$ \\
+	2.A: $U_q = 2V$ \\
+	1.B: $R_i = 100 \Omega$ \\
+	2.B: $U_q = \cdot \frac{100}{200} * 20 mA \cdot 200 \Omega = 2 V $ \\
+	1.C: $R_i = 150 \Omega || 300 \Omega = 100 \Omega$ \\
+	2.C: $U_q = 2,5 V + \frac{(1-2,5)V}{450 \Omega} \cdot 150 \Omega = 2 V$ \\
 	
 }
 
