@@ -21,6 +21,10 @@
 
 \usepackage{marvosym}			% Symbole, z.B. A im Kreis
 
+\usepackage{longtable}			% Für Ascii Tabelle
+
+
+
 \sisetup{per-mode = fraction}
 \titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.\ }{0pt}{}
 
@@ -99,10 +103,15 @@ $SNR_{dB} = 10 \log_{10}(SNR)  dB = P_{S,dBm} - P_{N,dBm} $ \\
 	
 	
 	\subsection{Nyquist-Abtasttheorem}
-	$ R_{b,max} = 2 B ld(V) \frac{bit}{s} $
+	$ R_{b,max} = 2 B \cdot ld(V) \frac{bit}{s} $ \\
+	Faktor 2 nur bei Stereo-Übertragung, bei Mono Faktor 1. \\
 
 	\subsection{Shannon-Abtasttheorem}
-	$ R_{b,max} = B ld (1+ SNR) \frac{bit}{s}$ mit $[SNR] = 1 $ 
+	$ R_{b,max} = B \cdot ld (1+ SNR) \frac{bit}{s}$ mit $[SNR] = 1 $ \\
+	
+	Nyquist und Shannon geben beide die theoretisch max. Bitrate an. Der niedrigere Wert gibt das tatsächliche Max. an. \\
+
+
 }
 
 
@@ -120,12 +129,8 @@ Leistungspegel: \\
 	$ 1 dBm = 1 dBmW = 30 dB \mu W = 60 dBnW$ \\
 Verstärkung[dB] = $L_{P,dB}$; Dämpfung[dB] = $-L_{P,dB}$ \\
 
-Logarithmische Rechenregeln: \\
-$ x = a \cdot log_{b}{(c \cdot d)} $ \\
-$ x = log_{b}{c \cdot d }^a = log_{b}{c}^a + log_{b}{d}^a $ \\
-$ b^{x} = (c\cdot d)^a = c^a \cdot d^a$ \\
-$ \sqrt[a]{(b^{x})} = c \cdot d $ \\ 
-Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion und Division.
+Logarithmische Rechenregeln: s. Anhang Mathemathik \\
+
 
 	\subsection{Umrechnung dB}
 \begin{tabular}[h]{l|c|c}
@@ -353,6 +358,11 @@ Bsp.: 0x0050 = 0d80 = http \\
 % ============================================================================================
 
 \sectionbox{
+	\textbf{Bitstopfen}(Bit Stuffing) \\
+	Dieses eingefügte Bit wird verwendet, wenn innerhalb der Nutzdaten zufällig die Bitfolge auftaucht, die als Blockbegrenzung (Flag) vorgesehen ist. \\
+	
+	Kein Bitstopfen bei asynchroner Datenübertragung. \\
+	
 	\subsection{Stop and Wait} 
 		Senden eines Pakets, Warten auf Bestätigung (ACK), Senden des nächsten Pakets, usw. \\
 		$R_eff = \frac{D_p}{\frac{D_p}{R_b} + 2 t_t}$ wenn $t_t$ für Hin- und Rückweg gleich. \\
@@ -394,6 +404,10 @@ Bsp.: 0x0050 = 0d80 = http \\
 	2 Fälle für's Ergebnis möglich \\
 	I. Mit Rest: Übertragungsfehler \\
 	II. Ohne Rest: wahrscheinlich kein Übertragungsfehler \\
+	
+	\textbf{Unerkennbare Bitfehler} errechnen:\\
+	Zusammenhängende Bitfolge in den Empfangsdaten in der Länge des Polynoms (oder das gesamte Polynom) durch XOR mit dem Polynom verknüpfen. Also Division weiterhin restfrei. \\
+	
 
 } 
 
@@ -449,6 +463,18 @@ Bsp.: 0x0050 = 0d80 = http \\
 }
 
 \sectionbox{
+	\subsection{Blockparität}
+	Beispiel Blockparität mit 9 Nutzdaten und insgesamt 7 Paritätsbits. Die Nummerierung der Bits erfolgt in Sendereihenfolge.\\
+
+	\includegraphics[width = 6cm]{./img/Blockparitaet.png}
+
+	P-Bits in der Spalte ganz rechts sind die Parität für alle in ihrer Zeile befindlichen Bits.\\
+	P-Bits in der Zeile ganz unten sind die Parität für alle in ihrer Spalte befindlichen Bits.\\
+	Beide Regeln werden auf das P-Bit am Ende angewendet. \\
+	Gerade (Even) und Ungerade (Odd) Parität möglich.\\
+}
+
+\sectionbox{
 	\subsection{Hamming Code(N,n)}
 	N Nachrichtenbits mit $ N = 2^k - 1 = n + k $\\
 	n Datenbits \\
@@ -467,7 +493,7 @@ Bsp.: 0x0050 = 0d80 = http \\
 	Anleitung für manuelle visuelle Erstellung mittels eines "Huffman-Baums":\\
 	1. Zeichen (und/oder Knoten) mit der niedrigsten Wahrscheinlichkeit durch Leitungen verbinden\\
 	2. Beide Wahrscheinlichkeiten für die des Knotens addieren \\
-	3. weiter mit 2. bis alle verbunden sind (Gesamtwahrscheinlichkeit 1) \\
+	3. weiter mit 1. bis alle verbunden sind (Gesamtwahrscheinlichkeit 1) \\
 	4. Für die neuen Codewörter nach Huffmann: rückwärts bei jeder Verzweigung eine 1 für den wahrscheinlicheren Zweig und eine 0 für den unwahrscheinlicheren \\
 	5. Das erste Bit des Codeworts des Zeichens $x_i$ nach Huffmann ist die gesetzte 0 oder 1 bei der ersten Verzweigung hin zum Zeichen $x_i$. Das nächste Bit entsprechend der nächsten Verzweigung, usw.\\
 	
@@ -477,7 +503,18 @@ Bsp.: 0x0050 = 0d80 = http \\
 
 \sectionbox{
 	\subsection{Reed-Solomon Code}
+	k Daten werden in Zahlenformat übermittelt. Dazu kommen nochmals k Zusatz-Daten für die Fehlerkorrektur. Alle Daten liegen auf einem Polynom des Grades k-1. Fehler können korrigiert werden, wenn weniger als k Fehler auftreten. \\
+	
+	Bsp. Polynom ersten Grades also $k = 2$ \\
+		Alle 4 Punkte müssen auf einer Geraden liegen, also mit gleichem Abstand zwischen einander. \\
 
+		
+	\includegraphics[width = 6cm]{./img/ReedSolomon_bsp.png} \\
+	Der 2. oder 3. Zahlenwert in der Grafik ist fehlerhaft, da keine gleichen Abstände vorhanden sind.\\
+	Richtiger Durchschnittsabstand zwischen allen Punkten (mit dem Fehler bei einem der mittleren Zahlenwerte):\\
+	$\frac{163,5 - 17,4}{3} = \frac{41,1+56,3+48,7}{3} = 48,7 $
+	
+	
 }
 
 
@@ -610,8 +647,10 @@ $	IP-Adresse = Netzwerkadresse + Hostadresse $\\
 	
 	Wichtig: Router die zwei Netzsegmente koppeln benötigen 2 IP-Adressen.\\
 	
-	VLSM?
-	%TODO: VLSM
+		Cidr-Wert Beispiel:\\
+	10.4.7.0/30 bedeutet 30 bits sind reserviert für den Netzanteil und 2 bits bleiben für den Hostanteil.
+	%TODO: Umschreiben IP-Adressen Cidr-Wert
+	
 }
 
 \sectionbox{
@@ -686,13 +725,28 @@ The cop moves to arrest them. Ohm resists.
 
 \sectionbox{
 \subsection{Exponentialfunktion und Logarithmus}
-\begin{tabular*}{\columnwidth}{l@{\extracolsep\fill}ll}
-	$b^a = x$ & $\log_b(1) = 0$ & $\log_b x = \frac{\log_a x}{\log_a b}$\\
+
+
+\begin{tabular*}{\columnwidth}{l@{\extracolsep\fill}l}
+	$ x = a \cdot log_{b}{(c \cdot d)} $ & $ b^{x} = (c\cdot d)^a = c^a \cdot d^a$ \\
 	
-	$log_b x = a$& $\log(10) = 1 $ & $\ln(\frac{x}{a}) = \ln x - \ln a$  \\
+	$ x = log_{b}{(c \cdot d)}^a$ & $ \sqrt[a]{(b^{x})} = c \cdot d $  \\	
 	
-	$\ln(x^{c}) = c \ln(x)$ & $\ln e = 1$ & $\ln(x \cdot a) = \ln x + \ln a$\\
-\end{tabular*}
+	$ x = log_{b}{c}^a + log_{b}{d}^a $ & $log_{b}{b} = 1 $   \\
+		
+	$\log_{b1} x = \frac{\log_{b2} (x)}{\log_{b2} (b1)}$ &  $log_{b}{1} = 0$  \\
+	
+\end{tabular*}\\
+
+
+Durch $x = (\frac{1}{x})^{-1}$ ergeben sich die Rechenregeln für Subtraktion und Division.\\
+
+$ x = a \cdot log_{b}{(c \cdot d)} $ \\
+$ x = log_{b}{(c \cdot d)}^a = log_{b}{c}^a + log_{b}{d}^a $ \\
+$ b^{x} = (c\cdot d)^a = c^a \cdot d^a$ \\
+$ \sqrt[a]{(b^{x})} = c \cdot d $ \\ 
+
+
 }
 
 \sectionbox{
@@ -749,6 +803,13 @@ $\cos ( x \pm y ) = \cos x \, \cos y \mp \sin x \, \sin y$ & $\cos x = \frac{1}{
 	$2^1$ & $2^2$ & $2^3$ & $2^4$ & $2^5$ & $2^6$ & $2^7$ & $2^8$ & $2^{16}$\\ \mrule
 	2 & 4 & 8 & 16 & 32 & 64 & 128 & 256 & 65536\\
 \end{tabular}
+
+
+
+\sectionbox{
+	\subsection{Komplexe Wechselstromrechnung}
+	WS16/17, Umrechnung Phi, Wegdifferenz ... 
+}
 
 
 % SECTION ====================================================================================
@@ -1069,7 +1130,7 @@ Fall II : \(\lim\limits_{U_e \to \infty} U_a = V_- \) \\
 
 2. Bedingung an der unteren (US) und oberen (OS) Schaltschwelle ($U_m = U_p$) einstellen in Abhängigkeit der Art der Hysterese (I oder II): \\
  ( I ) US: $ U_e = U_{us}; U_a = V_{+} $ \\
- ( I ) OS: $ U_e = U_{os}; U_a = V_{-}+ $ \\
+ ( I ) OS: $ U_e = U_{os}; U_a = V_{-} $ \\
  ( II ) US: $ U_e = U_{us}; U_a = V_{-} $ \\
  ( II ) OS: $ U_e = U_{os}; U_a = V_{+} $ \\
  
@@ -1169,15 +1230,19 @@ Konstanten...
 % Ende der Spalten
 \end{multicols*}
 
+
+
+\newpage
 % SECTION ====================================================================================
 \section{Anhang2}
 % ============================================================================================
- \includegraphics[scale = 1.1]{./img/OSI_Modell3.png} \\
+\textbf{ASCII-Tabelle}
+ \includegraphics[scale = 1.1]{./img/Ascii.png} \\
  
  \newpage
  \textbf{Als Anhang für die Abgabe der Klausur}
 
-
+ \includegraphics[scale = 1.1]{./img/OSI_Modell3.png} \\
 
 
 	\textbf{Definitionen}	
