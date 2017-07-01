@@ -187,7 +187,7 @@ Logarithmische Rechenregeln: s. Anhang Mathemathik \\
 
 
 % SECTION ====================================================================================
-\section{Leitungstheorie}
+\section{Leitungstheorie s. Formelsammlung Hübner}
 % ============================================================================================
 
 \sectionbox{ Leitungstheorie \textbf{relevant für $l >= 0,1 \lambda$}
@@ -195,11 +195,12 @@ Logarithmische Rechenregeln: s. Anhang Mathemathik \\
 	Leitungslänge $l$ mit [$l$] = m \\
 	Belagsgrößen:  $R', L', G', C'$ als Widerstands-, Induktivitäts-, Ableitungs-, Kapazitätsbelag \\
 	Bsp: $R = R' \cdot l$ mit [$R'$] = $\frac{\Omega}{m}$ \\
-	Wellenimpedanz $\underline{Z}_L = \sqrt{\frac{(R'\cdot j\omega L')}{(G' \cdot j \omega C')}} $ \\
+	Wellenimpedanz $\underline{Z}_L = \sqrt{\frac{(R'+ j\omega L')}{(G' +j \omega C')}} $ \\
 	Wellenlänge $\lambda$ mit [$\lambda$] = m \\
 	Ausbreitungsgeschwindigkeit $v$ = $\lambda \cdot f$ mit [$v$] = m/s \\
-	Ausbreitungskonstante $\gamma = \alpha + j \beta = \sqrt{(R'\cdot j\omega L')(G' \cdot j \omega C')}$ mit [$\gamma$] = $\frac{1}{m}$ \\
+	Ausbreitungskonstante $\gamma = \alpha + j \beta = \sqrt{(R' + j\omega L')(G' + j \omega C')}$ mit [$\gamma$] = $\frac{1}{m}$ \\
 
+	to be completed
 	
 	\subsection{Leitungsmodell}
 	%TODO: Grafik einfügen
@@ -452,14 +453,21 @@ Bsp.: 0x0050 = 0d80 = http \\
 
 
 \sectionbox{
-	\subsection{Informationsgehalt und Entropie}
-	Info vom Symbol $s_i$: $I_i = - \log_2 \P(\X_Q = s_i) = -\log_2 p_i$\\ 
-	Entropie von $\X_Q$: $H(\X_Q) = \E[I] = - \sum\limits_{i = 0}^{M-1} p_i \log_2 p_i $
-	$\left[\frac{\ir{bit}}{\ir {Symbol}}\right]$\\
+	\subsection{Informationsgehalt und Entropie (mittlerer Informationsgehalt)}
+	$s_i$: Zeichen aus Alphabet mit $M$ Zeichen\\
+	$I_i$: Informationsgehalt  des Zeichens $s_i$\\
+	$p_i$: Wahrscheinlichkeit  des Zeichens $s_i$ \\
+	$l_i$: Codewortlänge des Zeichens $s_i$ \\
+	$H$: Entropie eines Codes als Erwartungswert des Informationsgehalt eines Zeichens aus dessen Alphabet.\\
 	
-	Mittlere Codewortlänge $\overline l = \E[l] = \sum \limits_{i= 0}^{n-1} p_i l_i$
+	$I_i = - \log_2 p_i$  $\left[\ir{bit} \right]$ \\ 
 	
-	Die minimale mittlere Codewortlänge $\overline l \ge H(x_Q)$
+	Entropie $ H = - \sum\limits_{i = 0}^{M-1} p_i \log_2 p_i $ 	$\left[\frac{\ir{bit}}{\ir {Zeichen}}\right]$\\
+	$H_{max} =  - \log_2 \frac{1}{M}$,  wenn alle Zeichen gleich wahrscheinlich sind.	
+	
+	Mittlere Codewortlänge $\overline l  = \bar{N} = \sum \limits_{i= 0}^{n-1} p_i l_i$
+	
+	Die minimale mittlere Codewortlänge $\overline l \ge H$
 }
 
 \sectionbox{
@@ -624,33 +632,36 @@ Bsp.: 0x0050 = 0d80 = http \\
 % ============================================================================================
 
 \sectionbox{
-	\subsection{IPv4-Adressen}
-$	IP-Adresse = Netzwerkadresse + Hostadresse $\\
-	IP-Adresse UND Netzwerkmaske = Netzwerkadresse inkl. vorangestellte(s) Bit(s) für die Adressklasse\\
-	Genormte Länge von 32 bit für eine IP-Adresse \\
+	\subsection{IPv4-Adressen (32 Bit Länge)}
+	\textbf{IP-Adresse = Netzanteil (+ Subnetzanteil) + Hostanteil} \\
+	\textbf{IP-Adresse UND (Sub-)Netzmaske = (Sub-)Netzwerkadresse} \\
+	\textbf{(Sub-)Netzmaske} = alle Bits des (Sub-)Netzanteil gleich 1, alle Bits des Hostanteil gleich 0 \\
+	
 	Schreibweise meist in 4 Oktett-Form mit 4 durch Punkte getrennte dezimale 8-Bit-Zahlen (0...255) \\
+	
+	Wichtig: Router die zwei Netzsegmente koppeln benötigen 2 IP-Adressen.\\
+	
+	\textbf{CIDR-Wert}	Beispiel: 10.4.7.0/30 \\
+	30 Bits für (Sub-)Netzanteil, und (32 - 30) Bit = 2 Bit  für den Hostanteil
 	
 	\includegraphics[width = 6.8cm]{./img/IP_Adressklassen.png} \\
 	\includegraphics[width = 6.8cm]{./img/IP_Adressraum.png}\\
 
+	\textbf{Reservierte Adressen}\\
 	Localhost = 127.0.0.1 \\
-	\textbf{Netzwerkadresse}, alle bits der Hostadresse sind 0 \\
+	\textbf{(Sub-)Netzwerkadresse}, alle bits der Hostadresse sind 0 \\
 	\textbf{Broadcastadresse}, alle bits der Hostadresse sind 1  \\
 	
+}	
 
-	\textbf{Subnetting} \\
-	Unterteilung eines Klasse A-, B- oder C-Netzes in Subnetze \\
-	Die Subnetzmaske unterteilt die Bits für die Host-Adresse in eine Subnetzwerkadresse und die eigentliche Rechneradresse. \\
-	$IP-Adresse = Netzwerkadresse + Subnetzwerkadresse + eig. Rechneradresse$ \\
-	IP-Adresse UND Subnetzmaske = Netzwerkadresse + Subnetzadresse inkl. vorangestellte(s) Bit(s) für die Adressklass \\
-	
-	
-	Wichtig: Router die zwei Netzsegmente koppeln benötigen 2 IP-Adressen.\\
-	
-		Cidr-Wert Beispiel:\\
-	10.4.7.0/30 bedeutet 30 bits sind reserviert für den Netzanteil und 2 bits bleiben für den Hostanteil.
 	%TODO: Umschreiben IP-Adressen Cidr-Wert
+
+\sectionbox{		
+	\textbf{Beispiel Subnetting mit 3 Subnetzen und 62.0.0.0/8 zugewiesen}\\
+	\includegraphics[width = 6.8cm]{./img/IPv4_bsp.png}\\
 	
+	Beispielrechnung: \\
+	Für ausreichend Adressen für n Rechner werden aufgerundet $log_2(n+2)$ bit für den Hostanteil benötigt.\\
 }
 
 \sectionbox{
@@ -1223,7 +1234,7 @@ Fall II : \(\lim\limits_{U_e \to \infty} U_a = V_- \) \\
 \section{Naturkonstanten}
 % ============================================================================================
 \sectionbox{
-Konstanten...
+Konstanten... \\
 }
 
 
