@@ -23,7 +23,11 @@
 
 \usepackage{longtable}			% Für Ascii Tabelle
 
-
+\usepackage[
+	type={CC},
+	modifier={by-nc-sa},
+	version={3.0},
+]{doclicense}
 
 \sisetup{per-mode = fraction}
 \titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection.\ }{0pt}{}
@@ -222,16 +226,18 @@ Logarithmische Rechenregeln: s. Anhang Mathemathik \\
 \sectionbox{
 	\subsection{Poynting-Vektor}
 	%Herleitung Strahlungsdichte über Poynting-Vektor
-		Poynting-Vektor $\overrightarrow{S}$ ist Vektor der Leistungsflussdichte mit $[S] = 1\frac{W}{m^2}$ \\
-		$\overrightarrow{S}(x,y,z,t) = \overrightarrow{E}(x,y,z,t) \times \overrightarrow{H}(x,y,z,t)$ \\
-		Für harmonische Zeitvorgänge und EM-Wellen ($\overrightarrow{E} \sphericalangle \overrightarrow{H} = \frac{\pi}{2} $) gilt: \\
-		$\underline{S} = S = \frac{1}{2}\underline{E} \cdot \underline{H}^{*}  = \frac{1}{2}\underline{H}^2 Z_F = \frac{1}{2}\frac{Z_F}{\underline{E}^2}$ mit $E, H \in \mathbb{C}$ \\ 
-		Wellenwiderstand im Vakuum $Z_F = \sqrt{\frac{\mu_0}{\epsilon_0}} \approx 376,73 \Omega$
-
-
+	Poynting-Vektor $\overrightarrow{S}$ ist Vektor der Leistungsflussdichte mit $[S] = 1\frac{W}{m^2}$ \\
+	$\overrightarrow{S}(x,y,z,t) = \overrightarrow{E}(x,y,z,t) \times \overrightarrow{H}(x,y,z,t)$ \\
+	
+	Für harmonische Zeitvorgänge und EM-Wellen ($\overrightarrow{E} \sphericalangle \overrightarrow{H} = \frac{\pi}{2} $) gilt: \\
+	$\underline{S} = S = \frac{1}{2}\underline{E} \cdot \underline{H}^{*}  \approx \frac{1}{2}\underline{H}^2 Z_{W0} = \frac{1}{2}\frac{Z_W0}{\underline{E}^2}$ mit $E, H \in \mathbb{C}$ \\ 
 
 	
-	$S_i = |\overrightarrow{S}|= \frac{P_S}{4 \pi r^2}$ \\
+	(Feld-)Wellenwiderstand: $Z_W = \frac{E}{H} = \sqrt{\frac{\mu_0 \mu_r}{\epsilon_0 \epsilon_r}}$ \\
+	$Z_{W0} = \sqrt{\frac{\mu_0}{\epsilon_0}} \approx 376,73 \Omega$  im Vakuum (näherungsweise in Luft) \\
+
+	$S_i = \frac{P_S}{4 \pi r^2}$ Leistungsflussdichte isotroper Kugelstrahler\\
+	
 	
 	Richtfaktor $D_i = \frac{S_{r,max}}{S_i} = 4 \pi r^2 \frac{S_{r,max}}{P_S}$\\
 	
@@ -242,7 +248,9 @@ Logarithmische Rechenregeln: s. Anhang Mathemathik \\
 	Antennenwirkfläche $ A_W = \frac{\lambda^2}{4 \pi} G $
 	mit der Wellenlänge $\lambda = \frac{c}{f}$
 	
-	Bsp. Empfangs- und Sendeantenne im Abstand r zueinander: \\ $P_E = P_S \cdot G_S \cdot G_E (\frac{\lambda}{4 \pi r})^2$ \\
+	Bsp. Empfangs- und Sendeantenne im Abstand r zueinander: \\ $P_E = P_S \cdot G_S \cdot G_E (\frac{\lambda}{4 \pi r})^2 = S_r \cdot A_{W,E}$ \\
+	
+	\includegraphics[width = 6cm]{./img/Funkuebertragung.png}
 }
 
 \section{OSI-Modell (Open-System-Interface)}
@@ -701,8 +709,7 @@ Bsp.: 0x0050 = 0d80 = http \\
 {\Huge \bf Eigene Notizen:}\\
 
 Aufruf: Bildet euch! Bildet andere! Bildet banden! \\
-Außerdem: $\Phi \Xi \heartsuit$4\CircledA \\ %Phi Xi Heart for Anarchy
-Für Liebe und Anarchie. Gegen Ausbeuter*innen und Kriegstreiber*innen, durch (anti-)systemisches Vorgehen wie z.B. Angriffen auf menschenverachtende, umweltzerstörende, Tiere quälende/mordende Infrastruktur à la Grenzzäune, Abschiebeknäste, Kohlegruben, Schlachtfabriken und ähnliches oder z.B. durch Aufbrechen von Denkmustern einer archaischen Asozialisation die solch Gräuel erzeugen oder z.B. solidarische Gegenkonzepte für ein gutes Leben für alle, welche die bestehenden Verhältnisse ins Wanken bringen. Natürlich ohne invidiuellen Terror à la RAF. Langer beschreibender Text, um die Political Correctness zu wahren.\\
+Außerdem: $\Phi \Xi \heartsuit$4\CircledA \quad Anmerkung s.u. \\ %Phi Xi Heart for Anarchy
 
 \textbf{4 the Lulz: Heisenberg, Schroeder and Ohm are in a car}\\
 They get pulled over. Heisenberg is driving and the cop asks him "Do you know how fast you were going?"
@@ -715,7 +722,15 @@ The cop thinks this is suspicious and orders him to pop open the trunk. He check
 
 "We do now, asshole!" shouts Schrodinger.
 
-The cop moves to arrest them. Ohm resists.
+The cop moves to arrest them. Ohm resists.\\
+
+Anmerkung zur Political Correctness (Stichwort Distanzieren):\\
+Gegen: Sexismus, Gewalt an Mensch und Tier (zur Not mit Gewalt*), Herrschaft, denn Freiheit herrscht nicht, Rassismus, Nationalismus, Neoliberalismus/Kapitalismus, Diskriminierung aufgrund der Religion, des Aussehens, der physischen und psychischen Gesundheit und der sexuellen Interessen, Kriege, Abschottung, Umweltzerstörung \\
+Für: Mehr Liebe und Anarchokommunismus (libertären Sozialismus), maximal selbstbestimmt (auch zivil ungehorsam) und solidarisch mit dezentralen basisdemokratischen Rätestrukturen, ein gutes Leben für alle\\
+
+*Strategisches Kalkül: Wird dadurch mehr oder weniger Gewalt in Folge erzeugt? \\
+"Redest du schon wieder pazifistisch verblendet, \\ 
+reiben sich Faschisten die Hände!"[WTG - Gartenzaun] \\
 
 
 
@@ -827,8 +842,12 @@ $\cos ( x \pm y ) = \cos x \, \cos y \mp \sin x \, \sin y$ & $\cos x = \frac{1}{
 
 
 \sectionbox{
-	\subsection{Komplexe Wechselstromrechnung}
-	WS16/17, Umrechnung Phi, Wegdifferenz ... 
+	\subsection{Komplexer Wellenansatz}
+	WS16/17, Umrechnung Phi, Wegdifferenz ... \\
+	$e^{j\omega t + \phi} = \cos{\omega t + \phi} + j \sin{\omega t + \phi}$ \quad
+	$|e^{j\omega t + \phi}| = 1$
+	Funkwellenübertragung mit Wegdifferenz $\Delta s$ und Frequenz $f$ \\
+	$\Delta \phi = \frac{\Delta s}{\lambda} = \frac{\Delta s \cdot f}{c}$ \\
 }
 
 
@@ -913,7 +932,8 @@ Standard Abweichung $\sigma = \sqrt{\Var[\X]}$\\
 \\
 	\textbf{Binominialverteilung} (diskret, $n$ Versuche, $k$ Treffer): \\
 	$P(X=k)= \binom nk p^k (1-p)^{n-k}$ \quad $\mu = np$ \quad $\sigma^2 = np(1-p)$\\
-
+	Binominalkoeffizient $ \binom nk = \frac{n!}{k!\cdot(n-k)!} $ \\
+	
 	\textbf{Korrelation} ist ein Maß für den linearen Zusammenhang von Variablen\\
 	Kreuzkorrelation von $\X$ und $\Y$: \boxed{ r_{xy} = \frac{\Cov(\X, \Y)}{\sigma_{\X} \sigma_{\Y}} }\\	
 }
@@ -1032,11 +1052,23 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 }
 
 % SECTION ====================================================================================
-\section{Fouriertrreihe und -koeffizienten} %TODO: Beispiel-Fourierreihe
+\section{Fourierreihe und -koeffizienten} %TODO: Beispiel-Fourierreihe
 % ============================================================================================
 
 \sectionbox{
-	...	
+	Fourierreihe f(t): Reihenentwicklung einer periodischen, abschnittsweise stetigen Funktion in eine Funktionsreihe aus Sinus- und Kosinusfunktionen\\
+	$f(t) = \frac{a_0}{2} + \sum_{k=1}^{\infty}(a_k \cos(kt) + b_k \sin(kt)) = \sum_{-\infty}^\infty (c_ke_k(t))$ \\
+	$a_k = \frac{1}{\pi} \int_{-\pi}^\pi f(t)\cdot \cos(kt) dt$ für $k \ge 0 $ \quad $k \in \mathbb{Z}$ \\
+	$b_k = \frac{1}{\pi} \int_{-\pi}^\pi f(t)\cdot \sin(kt) dt$ für $k \ge 1 $\\
+	$c_k = \frac{1}{2\pi} \int_{-\pi}^\pi f(t)e_{-k}(t) dt $ mit $c \in \mathbb{C}$ \\
+	
+	$f(t) = \frac{a_0}{2} + \sum_{k=1}^{\infty}(A_k \cos(kt-\phi_k))$\\
+	$A_k = \sqrt{a_k^2 + b_k^2}$ \quad $A_k \cos(kt-\phi_k) = a_k \cos(kt) + b_k \sin(kt) $\\
+	$a_k = A_k \cos(-\phi_k)$ \quad  $b_k = - A_k \sin(- \phi_k)$\\
+	$\phi_k = arccos \frac{a_k}{A_k} = arcsin \frac{b_k}{A_k}$ \\
+	
+
+	
 }
 
 
@@ -1119,6 +1151,7 @@ $\sinc\left(\frac{t}{T_A}\right) * \sinc\left(\frac{t}{T_A}\right) = T_A \sinc\l
 
 
 ====================================================================================
+\newpage
 \section{E-Technik}
 % ============================================================================================
 
@@ -1166,6 +1199,28 @@ Fall II : \(\lim\limits_{U_e \to \infty} U_a = V_- \) \\
 
 
 \sectionbox{
+
+\sectionbox{
+	\subsection{Lineare Ersatzspannungsquelle bestimmen}
+	Bestimmung des Innenwiderstands $R_i$ und der Quellspannung $U_q$ einer linearen Ersatzspannungsquelle:\\
+	
+	1. $R_i$ = Widerstand von Klemme zu Klemme mit U-Quellen kurzgeschlossen und I-Quellen offen \\
+	2. $U_q$ = Klemmspannung im Leerlauf \\
+	
+	\textbf{Beispiel-Ersatzspannungsquelle D}, identisch mit den Quellen A, B und C \\
+	%TODO Grafik-Untertitel
+	\includegraphics[width = 6.8cm]{./img/Ersatzspannungsquellen.png} \\
+	
+	Beispielrechnung:\\
+	1.A: $R_i = 100 \Omega + (0 \Omega||100 \Omega) = 100 \Omega$ \\
+	2.A: $U_q = 2V$ \\
+	1.B: $R_i = 100 \Omega$ \\
+	2.B: $U_q = \cdot \frac{100}{200} * 20 mA \cdot 200 \Omega = 2 V $ \\
+	1.C: $R_i = 150 \Omega || 300 \Omega = 100 \Omega$ \\
+	2.C: $U_q = 2,5 V + \frac{(1-2,5)V}{450 \Omega} \cdot 150 \Omega = 2 V$ \\
+	
+}	
+	
 	\subsection{NPN-Transistor}
 	
  	\textbf{NPN-Transistor}\\
@@ -1217,26 +1272,6 @@ Fall II : \(\lim\limits_{U_e \to \infty} U_a = V_- \) \\
 
 
 
-\sectionbox{
-	\subsection{Lineare Ersatzspannungsquelle bestimmen}
-	Bestimmung des Innenwiderstands $R_i$ und der Quellspannung $U_q$ einer linearen Ersatzspannungsquelle:\\
-		
-	1. $R_i$ = Widerstand von Klemme zu Klemme mit U-Quellen kurzgeschlossen und I-Quellen offen \\
-	2. $U_q$ = Klemmspannung im Leerlauf \\
-	
-	\textbf{Beispiel-Ersatzspannungsquelle D}, identisch mit den Quellen A, B und C \\
-	%TODO Grafik-Untertitel
-	\includegraphics[width = 6.8cm]{./img/Ersatzspannungsquellen.png} \\
-	
-	Beispielrechnung:\\
-	1.A: $R_i = 100 \Omega + (0 \Omega||100 \Omega) = 100 \Omega$ \\
-	2.A: $U_q = 2V$ \\
-	1.B: $R_i = 100 \Omega$ \\
-	2.B: $U_q = \cdot \frac{100}{200} * 20 mA \cdot 200 \Omega = 2 V $ \\
-	1.C: $R_i = 150 \Omega || 300 \Omega = 100 \Omega$ \\
-	2.C: $U_q = 2,5 V + \frac{(1-2,5)V}{450 \Omega} \cdot 150 \Omega = 2 V$ \\
-	
-}
 
 % SECTION
 ====================================================================================
@@ -1287,6 +1322,7 @@ Konstanten... \\
 
 % Dokumentende
 % ======================================================================
+\doclicenseThis  
 \end{document}
 
 
