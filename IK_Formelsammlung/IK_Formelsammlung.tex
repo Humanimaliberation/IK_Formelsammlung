@@ -83,9 +83,9 @@ Signal $\ra$ A/D Wandlung: Abtastung $\ra$ Digitaler Bitstrom $\ra$ D/A Wandlung
 	Signalstufen & $V$ & $[V] = 1$ \\ \hline
 	Bandbreite & $B$ & $[B] = 1 Hz$  \\ \hline
 	Datenrate / Bitrate & $R_b$ & $[R_b] = 1 bps $ \\ \hline
-	Sendepegel (Signal) & $P_S$ & $[P_S] = 1 W $ oder $[P_{S,dBm}] =  1 dBm $ \\ \hline
-	Rauschpegel (Noise) & $P_N$ & $[P_N] = 1 W $ oder $[P_{N,dBm}] = 1 dBm $ \\ \hline
-	Interefrenzpegel & $P_I$ & $[P_I] = 1 W $ oder $[P_{I,dBm}] = 1 dBm $ \\ \hline
+	Sendeleistung (Signal) & $P_S$ & $[P_S] = 1 W $ oder $[P_{S,dBm}] =  1 dBm $ \\ \hline
+	Rauschleistung (Noise) & $P_N$ & $[P_N] = 1 W $ oder $[P_{N,dBm}] = 1 dBm $ \\ \hline
+	Interferenzleistung & $P_I$ & $[P_I] = 1 W $ oder $[P_{I,dBm}] = 1 dBm $ \\ \hline
 	Signal-Rausch-Verhältnis & $ SNR = \frac{P_S}{P_N}$ & $[SNR] = 1$  oder  $ [SNR_{dB}] = 1 dB$ \\ \hline
 	Signal-Intefrenz-Rausch-Verhältnis & $ SINR = \frac{P_S}{P_I + P_N}$ & $[SINR] = 1$  oder  $ [SINR_{dB}] = 1 dB$ \\	
 	
@@ -334,7 +334,9 @@ Bsp.: 0x0050 = 0d80 = http \\
 		
 		Potentielle Kollisionszeit $ = \tau $ \\
 		$ S = G \cdot e^{-G} $ mit $ S_{max}(G = G_{max} = 1) = 0,368 $ \\
-		
+}
+
+\sectionbox{	
 	\subsection{CSMA: Carrier Sense Multiple Access}
 	
 	
@@ -363,7 +365,9 @@ Bsp.: 0x0050 = 0d80 = http \\
 	Dieses eingefügte Bit wird verwendet, wenn innerhalb der Nutzdaten zufällig die Bitfolge auftaucht, die als Blockbegrenzung (Flag) vorgesehen ist. \\
 	
 	Kein Bitstopfen bei asynchroner Datenübertragung. \\
-	
+}
+
+\sectionbox{	
 	\subsection{Stop and Wait} 
 		Senden eines Pakets, Warten auf Bestätigung (ACK), Senden des nächsten Pakets, usw. \\
 		$R_eff = \frac{D_p}{\frac{D_p}{R_b} + 2 t_t}$ wenn $t_t$ für Hin- und Rückweg gleich. \\
@@ -389,7 +393,7 @@ Bsp.: 0x0050 = 0d80 = http \\
 	
 	\subsection{HDLC (High Level Data Link Control)} 
 
-		\includegraphics[width = 6cm]{./img/HDLC_Rahmen.png}
+		\includegraphics[width = 6cm]{./img/HDLC_Rahmen.png}\\
 		Flag: 01111110; Bit stuffing (Bitstopfen) um Flag eindeutig zu halten\\
 }
 
@@ -470,11 +474,13 @@ Bsp.: 0x0050 = 0d80 = http \\
 	Die minimale mittlere Codewortlänge $\overline l \ge H$
 }
 
-\sectionbox{
-	\subsection{Blockparität}
-	Beispiel Blockparität mit 9 Nutzdaten und insgesamt 7 Paritätsbits. Die Nummerierung der Bits erfolgt in Sendereihenfolge.\\
 
-	\includegraphics[width = 6cm]{./img/Blockparitaet.png}
+\sectionbox{
+	\subsection{Blockparität Bsp. 9 bit Nutzdaten, 7 bit Paritäten}
+	\includegraphics[width = 2cm]{./img/Blockparitaet.png} 
+	Nummerierung der Bits in Sendereihenfolge.\\
+
+
 
 	P-Bits in der Spalte ganz rechts sind die Parität für alle in ihrer Zeile befindlichen Bits.\\
 	P-Bits in der Zeile ganz unten sind die Parität für alle in ihrer Spalte befindlichen Bits.\\
@@ -484,14 +490,17 @@ Bsp.: 0x0050 = 0d80 = http \\
 
 \sectionbox{
 	\subsection{Hamming Code(N,n)}
-	N Nachrichtenbits mit $ N = 2^k - 1 = n + k $\\
-	n Datenbits \\
-	k Paritybits \\
+	$N$ Nachrichtenbits mit $ N = 2^k - 1 = n + k $\\
+	$n$ Datenbits $n in \mathbb{N}$ \\
+	$k$ Paritybits $k in \mathbb{N}$\\
 	
 	Beispielübertragung mit Hamming(7,4):\\
-	\includegraphics[width = 6cm]{./img/HammingCode_bsp.png}
+	\includegraphics[width = 6cm]{./img/HammingCode_bsp.png} \\
+	(min.) Hamming-Distanz = 3, benachbarte Codewörter liegen also um 3 Bitänderungen außeinander.\\
 	
-	Allgemein:\\
+	Allgemein: später mal... Beispiel (7,4) am anschaulichsten\\
+	Sendereihenfolge (andere Bitbezeichnung wie oben):\\ P1, P2, D1, P4, D2, D3, D4(, ...)\\
+	Paritätsbits liegen immer beim $(2^(k-1))$-ten Bit. \\
 	%TODO: HAMMING ALLG?
 }
 
@@ -1254,10 +1263,9 @@ Konstanten... \\
  \textbf{Als Anhang für die Abgabe der Klausur}
 
  \includegraphics[scale = 1.1]{./img/OSI_Modell3.png} \\
-
-
-	\textbf{Definitionen}	
 	
+	\newpage
+	\textbf{Definitionen}	
 	
 	\begin{tabular*}{\columnwidth}{p{1.8cm} | p{1.6cm} | p{2.5cm}}
 		Bezeichnung & Symbol & Einheit \\ \hline
@@ -1274,7 +1282,7 @@ Konstanten... \\
 	Signalstufen V; Anzahl der möglichen annehmbaren Werte eines diskr. Signals pro Schritt \\
 	Zeit $t_{ges}$ ab Sendestart einer Datenmenge $D_b$ bis zum vollständigen Empfang, abhängig von verwendeten Protokollen \\
 	
-	
+	Unfertig, eigentlich als abgebbarer Teil für die Klausur gedacht, um Variablen einheitlicher zu bezeichnen. \\	
 
 
 % Dokumentende
